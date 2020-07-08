@@ -27,7 +27,7 @@ jobs:
   
     - name: Run
       run: |
-        python3 17wanxiao.py <<EOF
+        python3 main.py <<EOF
         ${{secrets.DEPTID}}
         ${{secrets.TEXT}}
         ${{secrets.EMERGENCY}}
