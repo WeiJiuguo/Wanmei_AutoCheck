@@ -19,18 +19,7 @@ jobs:
     - name: requirements
       run: |
         pip3 install -r requirements.txt
- 
-   - name: Run
+  
+    - name: Run
       run: |
-        python3 main.py <<
-        ${{secrets.TEXT}}
-        ${{secrets.ADDRESS}}
-        ${{secrets.ADDTEXT}}
-        ${{secrets.DEPTID}}
-        ${{secrets.USERID}}
-        ${{secrets.STUNUM}}
-        ${{secrets.USERNAME}}
-        ${{secrets.PHONENUM}}
-        ${{secrets.EMERGENCY}}
-        ${{secrets.EMERGENCYPHONE}}
-        EOF 
+        python3 main.py
