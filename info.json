@@ -12,10 +12,10 @@
         "deptid": deptId,
         "source": "app",
         "templateid": "pneumonia",
-        "stuNo": "201812010301",
-        "username": "王宇坤",
-        "phonenum": "15538550843",
-        "userid": "9022415",
+        "stuNo": stuNum,
+        "username": userName,
+        "phonenum": phoneNum,
+        "userid": userId,
         "updatainfo": [
             {
                 "propertyname": "isGoWarningAdress",

@@ -5,9 +5,10 @@ import requests
 deptId = eval(input())
 text = input()
 emergencyNum = input()
-
-area = {'address': address, 'text': addtext, 'code': "430321"}
-areaStr = json.dumps(area, ensure_ascii=False)
+phoneNum = input()
+userName = input()
+stuNum = input()
+userId = input()
 
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 

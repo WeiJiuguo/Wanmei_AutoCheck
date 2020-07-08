@@ -31,4 +31,8 @@ jobs:
         ${{secrets.DEPTID}}
         ${{secrets.TEXT}}
         ${{secrets.EMERGENCY}}
+        ${{secrets.PHONENUM}}
+        ${{secrets.USERNAME}}
+        ${{secrets.STUNUM}}
+        ${{secrets.USERID}}
         EOF
