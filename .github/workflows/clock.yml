@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 0 8 * * * 
+    - cron: 0 23 * * * 
 
 jobs:
   build:
@@ -15,10 +15,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Run a one-line script
-      run: echo Hello, world!
-      
+   
     - name: requirements
       run: |
         pip3 install -r requirements.txt
+ 
+   - name: Run
+      run: |
+        python3 main.py <<
+        ${{secrets.TEXT}}
+        ${{secrets.ADDRESS}}
+        ${{secrets.ADDTEXT}}
+        ${{secrets.DEPTID}}
+        ${{secrets.USERID}}
+        ${{secrets.STUNUM}}
+        ${{secrets.USERNAME}}
+        ${{secrets.PHONENUM}}
+        ${{secrets.EMERGENCY}}
+        ${{secrets.EMERGENCYPHONE}}
+        EOF 
