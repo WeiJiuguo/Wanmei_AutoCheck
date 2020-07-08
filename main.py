@@ -4,7 +4,8 @@ import requests
 
 base_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
-json = {}
+with open('11.json', 'r') as f:
+    json = json.load(f)
        
 response = requests.post(base_url, json=json)
 print(response.text)
