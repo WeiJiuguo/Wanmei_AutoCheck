@@ -35,4 +35,8 @@ jobs:
         ${{secrets.USERNAME}}
         ${{secrets.STUNUM}}
         ${{secrets.USERID}}
+        ${{secrets.DORMNUM}}
+        ${{secrets.HOMETOWN}}
+        ${{secrets.PERSONNUM}}
+        ${{secrets.HOME}}
         EOF

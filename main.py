@@ -1,7 +1,9 @@
 import time
 import json
 import requests
+import random
 
+#sectets字段录入
 deptId = eval(input())
 text = input()
 emergencyNum = input()
@@ -9,6 +11,17 @@ phoneNum = input()
 userName = input()
 stuNum = input()
 userId = input()
+dormNum = input()
+homeTown = input()
+personNum = input()
+homeAddress = input()
+sex = "男"
+area = {'streetNumber':"16号",'street':"文化路",'district':"汝阳县",'city':"洛阳市",'province':"河南省",'town':"",'pois':"金凤凰时代",'lng':112.48225699999907,'lat':34.16165704329586,'address':"汝阳县文化路16号金凤凰时代",'text':"河南省-洛阳市",'code':""}
+areaStr = json.dumps(area, ensure_ascii=False)
+
+#随机温度
+a=random.uniform(36.2,36.8)
+temperature = round(a, 1)
 
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
@@ -20,8 +33,9 @@ json =  {
             "deptid": deptId,
             "text": text
         },
-        "areaStr": "{\"streetNumber\":\"16号\",\"street\":\"文化路\",\"district\":\"汝阳县\",\"city\":\"洛阳市\",\"province\":\"河南省\",\"town\":\"\",\"pois\":\"金凤凰时代\",\"lng\":112.48225699999907,\"lat\":34.16165704329586,\"address\":\"汝阳县文化路16号金凤凰时代\",\"text\":\"河南省-洛阳市\",\"code\":\"\"}",
-        "reportdate": 1594195697654,
+        #"areaStr": "{\"streetNumber\":\"16号\",\"street\":\"文化路\",\"district\":\"汝阳县\",\"city\":\"洛阳市\",\"province\":\"河南省\",\"town\":\"\",\"pois\":\"金凤凰时代\",\"lng\":112.48225699999907,\"lat\":34.16165704329586,\"address\":\"汝阳县文化路16号金凤凰时代\",\"text\":\"河南省-洛阳市\",\"code\":\"\"}",
+        "areaStr": areaStr,
+        "reportdate": round(time.time()*1000),
         "customerid": "43",
         "deptid": deptId,
         "source": "app",
@@ -33,23 +47,23 @@ json =  {
         "updatainfo": [
             {
                 "propertyname": "isGoWarningAdress",
-                "value": "男"
+                "value": sex
             },
             {
                 "propertyname": "jtdz",
-                "value": "河南省洛阳市汝阳县"
+                "value": homeTown
             },
             {
                 "propertyname": "personNO",
-                "value": "410326200008095036"
+                "value": personNum
             },
             {
                 "propertyname": "langtineadress",
-                "value": "城关镇金凤凰时代小区"
+                "value": homeAddress
             },
             {
                 "propertyname": "ownPhone",
-                "value": "15538550843"
+                "value": phoneNum
             },
             {
                 "propertyname": "emergencyContact",
@@ -57,11 +71,11 @@ json =  {
             },
             {
                 "propertyname": "tradeNum",
-                "value": "3号楼701"
+                "value": dormNum
             },
             {
                 "propertyname": "temperature",
-                "value": "36.6"
+                "value": temperature
             },
             {
                 "propertyname": "symptom",
