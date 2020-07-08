@@ -39,4 +39,5 @@ jobs:
         ${{secrets.HOMETOWN}}
         ${{secrets.PERSONNUM}}
         ${{secrets.HOME}}
+        ${{secrets.LOCAL}}
         EOF

@@ -15,11 +15,12 @@ dormNum = input()
 homeTown = input()
 personNum = input()
 homeAddress = input()
+local = input()
 sex = "男"
-area = {'streetNumber':"16号",'street':"文化路",'district':"汝阳县",'city':"洛阳市",'province':"河南省",'town':"",'pois':"金凤凰时代",'lng':112.48225699999907,'lat':34.16165704329586,'address':"汝阳县文化路16号金凤凰时代",'text':"河南省-洛阳市",'code':""}
+area = {'address':homeAddress,'text':local,'code':""}
 areaStr = json.dumps(area, ensure_ascii=False)
 
-#随机温度
+#随机温度(36.2~36.8)
 a=random.uniform(36.2,36.8)
 temperature = round(a, 1)
 
@@ -33,7 +34,6 @@ json =  {
             "deptid": deptId,
             "text": text
         },
-        #"areaStr": "{\"streetNumber\":\"16号\",\"street\":\"文化路\",\"district\":\"汝阳县\",\"city\":\"洛阳市\",\"province\":\"河南省\",\"town\":\"\",\"pois\":\"金凤凰时代\",\"lng\":112.48225699999907,\"lat\":34.16165704329586,\"address\":\"汝阳县文化路16号金凤凰时代\",\"text\":\"河南省-洛阳市\",\"code\":\"\"}",
         "areaStr": areaStr,
         "reportdate": round(time.time()*1000),
         "customerid": "43",
