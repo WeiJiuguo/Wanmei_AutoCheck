@@ -166,12 +166,12 @@ response = requests.post(sign_url, json=jsons)
 print(response.text)
 result = json.dumps(response.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
 if response.json()["msg"] == '成功':
-        msg = "检测到打卡成功！"
+        msg = "打卡成功😀"
 else:
-        msg = "出现异常！"
+        msg = "打卡异常😐"
 
 sckey = input()
-title = "打卡结果通知"
+title = msg
 content = f"""
 ```
 {result}
