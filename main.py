@@ -177,6 +177,7 @@ content = f"""
 
 ```
 {msg}
+[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 """
 data = {
 "text":title,

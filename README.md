@@ -11,7 +11,7 @@
 ## 使用方法 
 1. [Fork](https://github.com/YooKing/HAUT_autoCheck/fork)此项目  
 2. 进入你的 fork 的仓库，`Settings → Secrets`,  
-![](/img/secret.png)
+![](https://s1.ax1x.com/2020/08/31/dOFQMV.png)
 按下面表格添加12个 Secret（利用secret解决隐私问题）：  
 
 <div align=center>
@@ -47,12 +47,12 @@
 
 6. 检查结果  
 下图中`run`为服务器反馈结果
-![](/img/result.png)  
+![](https://s1.ax1x.com/2020/08/31/dOFGa4.png)  
 
 ## 额外功能
 * [微信通知](https://github.com/YooKing/HAUT_autoCheck/wiki#wechat)  
 微信推送每次打卡结果。
-![](/img/wechat.jpg)
+![](https://s1.ax1x.com/2020/08/31/dOF0sK.jpg)
 🌞每天醒来一条推送，多么惬意！  
 * 想到什么添加什么...
 
