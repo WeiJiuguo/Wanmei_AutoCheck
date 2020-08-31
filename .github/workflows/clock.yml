@@ -1,0 +1,44 @@
+name: clock
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: 0 23 * * * 
+
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install Python3
+      run: |
+        sudo apt update && \
+        sudo apt install python3
+   
+    - name: requirements
+      run: |
+        pip3 install -r requirements.txt
+  
+    - name: Run
+      run: |
+        python3 main.py <<EOF
+        ${{secrets.DEPTID}}
+        ${{secrets.TEXT}}
+        ${{secrets.EMERGENCY}}
+        ${{secrets.PHONENUM}}
+        ${{secrets.USERNAME}}
+        ${{secrets.STUNUM}}
+        ${{secrets.USERID}}
+        ${{secrets.DORMNUM}}
+        ${{secrets.HOMETOWN}}
+        ${{secrets.PERSONNUM}}
+        ${{secrets.HOME}}
+        ${{secrets.LOCAL}}
+        ${{secrets.URL}}
+        EOF
