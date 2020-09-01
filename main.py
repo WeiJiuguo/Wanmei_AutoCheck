@@ -170,9 +170,9 @@ print(response.text)
 print(cstTime)
 #结果判定
 if response.json()["msg"] == '成功':
-        msg = "打卡成功" + cstTime
+        msg = "打卡成功-" + cstTime
 else:
-        msg = "打卡异常" + cstTime
+        msg = "打卡异常-" + cstTime
 #微信通知
 sckey = input()
 title = msg
