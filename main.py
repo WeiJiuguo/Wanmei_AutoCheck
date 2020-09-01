@@ -162,20 +162,23 @@ jsons =  {
         "gpsType": 1
     }
 }                       
+#提交打卡
 response = requests.post(sign_url, json=jsons)
+nowTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 print(response.text)
-result = json.dumps(response.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
+print(nowTime)
+#结果判定
 if response.json()["msg"] == '成功':
-        msg = "打卡成功"
+        msg = "打卡成功" + nowTime
 else:
-        msg = "打卡异常"
-
+        msg = "打卡异常" + nowTime
+#微信通知
 sckey = input()
 title = msg
+result = json.dumps(response.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
 content = f"""
 ```
 {result}
-
 ```
 ## 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 """
