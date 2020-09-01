@@ -2,7 +2,7 @@ import time
 import json
 import requests
 import random
-import os
+import datetime
 
 #sectets字段录入
 deptId = eval(input())
@@ -164,14 +164,15 @@ jsons =  {
 }                       
 #提交打卡
 response = requests.post(sign_url, json=jsons)
-nowTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+utcTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+cstTime = utcTime.strftime("%H:%M:%S", time.localtime())
 print(response.text)
-print(nowTime)
+print(cstTime)
 #结果判定
 if response.json()["msg"] == '成功':
-        msg = "打卡成功" + nowTime
+        msg = "打卡成功" + cstTime
 else:
-        msg = "打卡异常" + nowTime
+        msg = "打卡异常" + cstTime
 #微信通知
 sckey = input()
 title = msg
