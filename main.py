@@ -173,6 +173,7 @@ if response.json()["msg"] == '成功':
         msg = "打卡成功-" + cstTime
 else:
         msg = "打卡异常-" + cstTime
+print(msg)
 #微信通知
 sckey = input()
 title = msg
@@ -181,7 +182,7 @@ content = f"""
 ```
 {result}
 ```
-## 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
+### 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 """
 data = {
 "text":title,
