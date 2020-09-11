@@ -15,6 +15,11 @@ userId = input()
 a=random.uniform(36.2,36.8)
 temperature = round(a, 1)
 
+#时间获取
+cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+strTime = cstTime.strftime("%H:%M:%S")
+
+#reqURl
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
 jsons =  {
@@ -30,7 +35,7 @@ jsons =  {
         "customerid": "43",
         "deptid": deptId,
         "source": "app",
-        "templateid": "clockSign2",
+        "templateid": templateid,
         "stuNo": stuNum,
         "username": userName,
         "userid": userId,
@@ -44,20 +49,34 @@ jsons =  {
                 "value": "无症状"
             }
         ],
-        "customerAppTypeRuleId": 147,
+        "customerAppTypeRuleId": RuleId,
         "clockState": 0
     },
-}                       
-#提交打卡
-response = requests.post(sign_url, json=jsons)
-utcTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
-cstTime = utcTime.strftime("%H:%M:%S")
-print(response.text)
+}    
+#早中午判断
+if (cstTime >= 6) & (cstTime < 8):
+    templateid = "clockSign1"
+    RuleId = 146
+    response = requests.post(sign_url, json=jsons)
+    print(response.text)
+elif (cstTime >= 12) & (cstTime < 14):
+    templateid = "clockSign2"
+    RuleId = 147
+    response = requests.post(sign_url, json=jsons)
+    print(response.text)
+elif (cstTime >= 21) & (cstTime < 22):
+    templateid = "clockSign3"
+    RuleId = 148
+    response = requests.post(sign_url, json=jsons)
+    print(response.text)
+else:
+    pass
+
 #结果判定
 if response.json()["msg"] == '成功':
-        msg = "打卡成功-" + cstTime
+        msg = "打卡成功-" + strTime
 else:
-        msg = "打卡异常-" + cstTime
+        msg = "打卡异常-" + strTime
 print(msg)
 #微信通知
 sckey = input()
