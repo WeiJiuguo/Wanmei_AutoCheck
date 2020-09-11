@@ -22,6 +22,19 @@ strTime = cstTime.strftime("%H:%M:%S")
 #reqURl
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
+#早中午判断
+if (cstTime >= 6) & (cstTime < 8):
+    templateid = "clockSign1"
+    RuleId = 146
+elif (cstTime >= 12) & (cstTime < 14):
+    templateid = "clockSign2"
+    RuleId = 147
+elif (cstTime >= 21) & (cstTime < 22):
+    templateid = "clockSign3"
+    RuleId = 148
+else:
+    pass
+
 jsons =  {
     "businessType": "epmpics",
     "method": "submitUpInfoSchool",
@@ -53,24 +66,10 @@ jsons =  {
         "clockState": 0
     },
 }    
-#早中午判断
-if (cstTime >= 6) & (cstTime < 8):
-    templateid = "clockSign1"
-    RuleId = 146
-    response = requests.post(sign_url, json=jsons)
-    print(response.text)
-elif (cstTime >= 12) & (cstTime < 14):
-    templateid = "clockSign2"
-    RuleId = 147
-    response = requests.post(sign_url, json=jsons)
-    print(response.text)
-elif (cstTime >= 21) & (cstTime < 22):
-    templateid = "clockSign3"
-    RuleId = 148
-    response = requests.post(sign_url, json=jsons)
-    print(response.text)
-else:
-    pass
+
+#提交打卡
+response = requests.post(sign_url, json=jsons)
+print(response.text)
 
 #结果判定
 if response.json()["msg"] == '成功':
@@ -78,6 +77,7 @@ if response.json()["msg"] == '成功':
 else:
         msg = "打卡异常-" + strTime
 print(msg)
+
 #微信通知
 sckey = input()
 title = msg
