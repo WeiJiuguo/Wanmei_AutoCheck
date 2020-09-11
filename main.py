@@ -7,17 +7,9 @@ import datetime
 #sectets字段录入
 deptId = eval(input())
 text = input()
-emergencyNum = input()
-phoneNum = input()
 userName = input()
 stuNum = input()
 userId = input()
-dormNum = input()
-homeTown = input()
-personNum = input()
-homeAddress = input()
-local = input()
-sex = "男"
 
 #随机温度(36.2~36.8)
 a=random.uniform(36.2,36.8)
@@ -58,7 +50,7 @@ jsons =  {
 }                       
 #提交打卡
 response = requests.post(sign_url, json=jsons)
-utcTime = (datetime.datetime.utcnow() + dateti/me.timedelta(hours=8))
+utcTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
 cstTime = utcTime.strftime("%H:%M:%S")
 print(response.text)
 #结果判定

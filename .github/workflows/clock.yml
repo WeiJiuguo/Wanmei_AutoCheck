@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 0 23 * * * 
+    - cron: 30 5,13,23 * * * 
 
 jobs:
   build:
@@ -30,15 +30,8 @@ jobs:
         python3 main.py <<EOF
         ${{secrets.DEPTID}}
         ${{secrets.TEXT}}
-        ${{secrets.EMERGENCY}}
-        ${{secrets.PHONENUM}}
         ${{secrets.USERNAME}}
         ${{secrets.STUNUM}}
         ${{secrets.USERID}}
-        ${{secrets.DORMNUM}}
-        ${{secrets.HOMETOWN}}
-        ${{secrets.PERSONNUM}}
-        ${{secrets.HOME}}
-        ${{secrets.LOCAL}}
         ${{secrets.URL}}
         EOF
