@@ -33,7 +33,8 @@ elif (cstTime >= 21) & (cstTime < 22):
     templateid = "clockSign3"
     RuleId = 148
 else:
-    pass
+    print("现在时间%d点%d分，打卡时间未到！" %(now,time.localtime().tm_min))
+    exit(0)
 
 jsons =  {
     "businessType": "epmpics",
