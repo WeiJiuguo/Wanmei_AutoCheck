@@ -18,8 +18,6 @@ personNum = input()
 homeAddress = input()
 local = input()
 sex = "男"
-area = {'address':homeAddress,'text':local,'code':""}
-areaStr = json.dumps(area, ensure_ascii=False)
 
 #随机温度(36.2~36.8)
 a=random.uniform(36.2,36.8)
@@ -29,142 +27,38 @@ sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
 jsons =  {
     "businessType": "epmpics",
-    "method": "submitUpInfo",
+    "method": "submitUpInfoSchool",
     "jsonData": {
         "deptStr": {
             "deptid": deptId,
             "text": text
         },
-        "areaStr": areaStr,
+        "areaStr": "{\"streetNumber\":\"\",\"street\":\"长椿路辅路\",\"district\":\"中原区\",\"city\":\"郑州市\",\"province\":\"河南省\",\"town\":\"\",\"pois\":\"河南工业大学(莲花街校区)\",\"lng\":113.55064699999795,\"lat\":34.83870696238093,\"address\":\"中原区长椿路辅路河南工业大学(莲花街校区)\",\"text\":\"河南省-郑州市\",\"code\":\"\"}",
         "reportdate": round(time.time()*1000),
         "customerid": "43",
         "deptid": deptId,
         "source": "app",
-        "templateid": "pneumonia",
+        "templateid": "clockSign2",
         "stuNo": stuNum,
         "username": userName,
-        "phonenum": phoneNum,
         "userid": userId,
-        "updatainfo": [
-            {
-                "propertyname": "isGoWarningAdress",
-                "value": sex
-            },
-            {
-                "propertyname": "jtdz",
-                "value": homeTown
-            },
-            {
-                "propertyname": "personNO",
-                "value": personNum
-            },
-            {
-                "propertyname": "langtineadress",
-                "value": homeAddress
-            },
-            {
-                "propertyname": "ownPhone",
-                "value": phoneNum
-            },
-            {
-                "propertyname": "emergencyContact",
-                "value": emergencyNum
-            },
-            {
-                "propertyname": "tradeNum",
-                "value": dormNum
-            },
+        "updatainfo": [  
             {
                 "propertyname": "temperature",
                 "value": temperature
             },
             {
                 "propertyname": "symptom",
-                "value": "均无"
-            },
-            {
-                "propertyname": "isContactpatient",
-                "value": "均无"
-            },
-            {
-                "propertyname": "istouchcb",
-                "value": "否"
-            },
-            {
-                "propertyname": "isTransitProvince",
-                "value": "否"
-            },
-            {
-                "propertyname": "isTouch",
-                "value": "否"
-            },
-            {
-                "propertyname": "backadress",
-                "value": ""
-            },
-            {
-                "propertyname": "isContactFriendIn14",
-                "value": "否"
-            },
-            {
-                "propertyname": "sxaddress",
-                "value": ""
-            },
-            {
-                "propertyname": "medicalObservation",
-                "value": "否"
-            },
-            {
-                "propertyname": "sxss",
-                "value": ""
-            },
-            {
-                "propertyname": "isConfirmed",
-                "value": "否"
-            },
-            {
-                "propertyname": "assistRemark",
-                "value": ""
-            },
-            {
-                "propertyname": "gyfh",
-                "value": "否"
-            },
-            {
-                "propertyname": "FamilyIsolate",
-                "value": ""
-            },
-            {
-                "propertyname": "ishborwh",
-                "value": "否"
-            },
-            {
-                "propertyname": "IsHospitaltxt",
-                "value": ""
-            },
-            {
-                "propertyname": "fhhb",
-                "value": "否"
-            },
-            {
-                "propertyname": "isname",
-                "value": ""
-            },
-            {
-                "propertyname": "other1",
-                "value": ""
-            },
-            {
-                "propertyname": "isFFHasSymptom",
-                "value": "是"
+                "value": "无症状"
             }
         ],
-        "gpsType": 1
-    }
+        "customerAppTypeRuleId": 147,
+        "clockState": 0
+    },
 }                       
 #提交打卡
 response = requests.post(sign_url, json=jsons)
-utcTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+utcTime = (datetime.datetime.utcnow() + dateti/me.timedelta(hours=8))
 cstTime = utcTime.strftime("%H:%M:%S")
 print(response.text)
 #结果判定
