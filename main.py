@@ -23,13 +23,14 @@ strTime = cstTime.strftime("%H:%M:%S")
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
 #早中午判断
-if (cstTime >= 6) & (cstTime < 8):
+nowTime = time.localtime().tm_hour + 8
+if (nowTime >= 6) & (nowTime < 8):
     templateid = "clockSign1"
     RuleId = 146
-elif (cstTime >= 12) & (cstTime < 14):
+elif (nowTime >= 12) & (nowTime < 14):
     templateid = "clockSign2"
     RuleId = 147
-elif (cstTime >= 21) & (cstTime < 22):
+elif (nowTime >= 21) & (nowTime< 22):
     templateid = "clockSign3"
     RuleId = 148
 else:
