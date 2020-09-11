@@ -34,7 +34,7 @@ elif (nowTime >= 21) & (nowTime< 22):
     templateid = "clockSign3"
     RuleId = 148
 else:
-    print("现在时间%d点%d分，打卡时间未到！" %(now,time.localtime().tm_min))
+    print("现在时间%d点%d分，打卡时间未到！" %(nowTime,time.localtime().tm_min))
     exit(0)
 
 jsons =  {
