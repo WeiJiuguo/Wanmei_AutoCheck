@@ -24,7 +24,7 @@ sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
 #早中午判断
 nowTime = time.localtime().tm_hour + 8
-if (nowTime >= 31) & (nowTime < 32):
+if (nowTime >= 30) & (nowTime < 32):
     templateid = "clockSign1"
     RuleId = 146
 elif (nowTime >= 12) & (nowTime < 14):
