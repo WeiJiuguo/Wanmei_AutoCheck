@@ -15,6 +15,7 @@
 ## 友情链接
 - [https://github.com/ReaJason/17wanxiaoCheckin-Actions](https://github.com/ReaJason/17wanxiaoCheckin-Actions)  
 - [https://github.com/chillsoul/EzCheckInSchool](https://github.com/chillsoul/EzCheckInSchool)  
+- [https://github.com/LovelyWhite/Haut-AutoCheckin](https://github.com/LovelyWhite/Haut-AutoCheckin)
 
 ## 许可
 
