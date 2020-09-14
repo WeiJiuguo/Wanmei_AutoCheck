@@ -18,5 +18,4 @@
 - [https://github.com/LovelyWhite/Haut-AutoCheckin](https://github.com/LovelyWhite/Haut-AutoCheckin)
 
 ## 许可
-
 本项目以 MIT 协议开源，详情请见 [LICENSE](LICENSE) 文件。
