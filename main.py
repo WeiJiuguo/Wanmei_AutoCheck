@@ -33,10 +33,14 @@ jsonDic = GetFromJSON(filename)
 AllClass = jsonDic['data']['classAll']
 
 def main():
+    #获取班级
+    try:
+        TextStr = text.split('-', 3)
+        ClassName = TextStr[2] 
     # 获取deptId
     try:
         for class_ in AllClass:
-            if (class_['name'] == text):
+            if (class_['name'] == ClassName):
                 deptId = class_['deptId']
         if deptId:
             print('获取deptId成功!')
