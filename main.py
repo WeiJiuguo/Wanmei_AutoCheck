@@ -38,6 +38,8 @@ def main():
         TextStr = text.split('-', 3)
         ClassName = TextStr[2] 
     # 获取deptId
+    except:
+        print("获取失败")
     try:
         for Class in AllClass:
             if (Class['name'] == ClassName):
