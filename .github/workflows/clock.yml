@@ -6,7 +6,8 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 30 5,13,23 * * * 
+    - cron: 0 23 * * *
+    - cron: 30 5,13 * * * 
 
 jobs:
   build:
@@ -28,10 +29,8 @@ jobs:
     - name: Run
       run: |
         python3 main.py <<EOF
-        ${{secrets.DEPTID}}
         ${{secrets.TEXT}}
         ${{secrets.USERNAME}}
         ${{secrets.STUNUM}}
-        ${{secrets.USERID}}
         ${{secrets.URL}}
         EOF
