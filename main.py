@@ -15,10 +15,6 @@ userId = input()
 a=random.uniform(36.2,36.8)
 temperature = round(a, 1)
 
-#时间获取
-cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
-strTime = cstTime.strftime("%H:%M:%S")
-
 #reqURl
 sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
 
@@ -45,7 +41,7 @@ jsons =  {
             "deptid": deptId,
             "text": text
         },
-        "areaStr": "{\"streetNumber\":\"\",\"street\":\"长椿路辅路\",\"district\":\"中原区\",\"city\":\"郑州市\",\"province\":\"河南省\",\"town\":\"\",\"pois\":\"河南工业大学(莲花街校区)\",\"lng\":113.55064699999795 + random.random()/1000,\"lat\":34.83870696238093 + random.random()/1000,\"address\":\"中原区长椿路辅路河南工业大学(莲花街校区)\",\"text\":\"河南省-郑州市\",\"code\":\"\"}",
+        "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
         "reportdate": round(time.time()*1000),
         "customerid": "43",
         "deptid": deptId,
@@ -73,6 +69,10 @@ jsons =  {
 response = requests.post(sign_url, json=jsons)
 print(response.text)
 
+#时间获取
+cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+strTime = cstTime.strftime("%H:%M:%S")
+
 #结果判定
 if response.json()["msg"] == '成功':
         msg = "打卡成功-" + strTime
@@ -95,3 +95,7 @@ data = {
 "desp":content
 }
 req = requests.post(sckey,data = data)
+if req.json()["errmsg"] == 'success':
+    print("Server酱推送服务成功")
+else:
+    print("Server酱推送服务失败")
