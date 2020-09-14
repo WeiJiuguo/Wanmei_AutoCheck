@@ -17,7 +17,7 @@ def GetFromJSON(filename):
     idStr={} 
     path = os.getcwd()
     try:
-        j_file=open(path+filename,'r', encoding='utf8')
+        j_file=open(filename,'r', encoding='utf8')
         idStr=json.load(j_file)
         flag=True
     except:
