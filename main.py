@@ -39,9 +39,9 @@ def main():
         ClassName = TextStr[2] 
     # 获取deptId
     try:
-        for class_ in AllClass:
-            if (class_['name'] == ClassName):
-                deptId = class_['deptId']
+        for Class in AllClass:
+            if (Class['name'] == ClassName):
+                deptId = Class['deptId']
         if deptId:
             print('获取deptId成功!')
     except:
