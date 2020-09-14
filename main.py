@@ -28,7 +28,7 @@ def GetFromJSON(filename):
     return idStr
 
 #读取text.json文件
-filename = r'.\text.json'
+filename = r'text.json'
 jsonDic = GetFromJSON(filename)
 AllClass = jsonDic['data']['classAll']
 
