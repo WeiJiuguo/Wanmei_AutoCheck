@@ -109,16 +109,18 @@ def main():
 
     #提交打卡
     count = 0
-    while (count < 5):
+    while (count < 3):
         response = requests.post(sign_url, json=jsons)
         if response.json()["msg"] == '成功':
             print(response.text)
             msg = "打卡成功-" + strTime
             break
         else:
+            print(response.text)
             msg = "打卡异常-" + strTime
             count = count + 1
-            time.sleep(60)
+            print('打卡失败，开始第%d次重试...'%(count))
+            time.sleep(15)
     print(msg)
 
     #微信通知
