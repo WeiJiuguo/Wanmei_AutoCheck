@@ -5,17 +5,10 @@ import random
 import datetime
 import os
 
-#sectets字段录入
-text = input()
-userName = input()
-stuNum = input()
-sckey = input()
-
 #json读取函数
 def GetFromJSON(filename): 
     flag = False
     idStr={} 
-    path = os.getcwd()
     try:
         j_file=open(filename,'r', encoding='utf8')
         idStr=json.load(j_file)
@@ -33,6 +26,11 @@ jsonDic = GetFromJSON(filename)
 AllClass = jsonDic['data']['classAll']
 
 def main():
+    #sectets字段录入
+    text = input()
+    userName = input()
+    stuNum = input()
+    sckey = input()      
     #获取班级
     try:
         TextStr = text.split('-', 3)
@@ -49,13 +47,8 @@ def main():
     except:
         print("获取deptId失败！")
         exit(1)
-    
-    #随机温度(36.2~36.8)
-    a=random.uniform(36.2,36.8)
-    temperature = round(a, 1)
-
     #早中午判断
-    nowTime = (time.localtime().tm_hour + 8) % 24
+    nowTime = (time.localtime().tm_hour-1 ) % 24
     if (nowTime >= 6) & (nowTime < 8):
         templateid = "clockSign1"
         RuleId = 146
@@ -68,13 +61,35 @@ def main():
     else:
         print("现在时间%d点%d分，打卡时间未到！" %(nowTime,time.localtime().tm_min))
         exit(0)
-
-    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
-
-    jsons =  {
-    "businessType": "epmpics",
-    "method": "submitUpInfoSchool",
-    "jsonData": {
+    #时间获取
+    cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+    strTime = cstTime.strftime("%H:%M:%S")
+    #提交打卡
+    count = 0
+    while (count < 3):
+        response = check_in(deptId,text,stuNum,userName,RuleId,templateid)
+        if response.json()["msg"] == '成功':
+            print(response.text)
+            msg = "打卡成功-" + strTime
+            break
+        else:
+            print(response.text)
+            msg = "打卡异常-" + strTime
+            count = count + 1
+            print('打卡失败，开始第%d次重试...'%(count))
+            time.sleep(15)
+    print(msg)
+    if  msg:
+        WechatPush(msg,sckey,response)
+    #打卡参数配置函数
+def GetUserJson(deptId,text,stuNum,userName,RuleId,templateid):
+    #随机温度(36.2~36.8)
+    a=random.uniform(36.2,36.8)
+    temperature = round(a, 1)
+    return  {
+        "businessType": "epmpics",
+        "method": "submitUpInfoSchool",
+        "jsonData": {
         "deptStr": {
             "deptid": deptId,
             "text": text
@@ -100,34 +115,21 @@ def main():
         ],
         "customerAppTypeRuleId": RuleId,
         "clockState": 0
-    },
-}    
-
-    #时间获取
-    cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
-    strTime = cstTime.strftime("%H:%M:%S")
-
+        },
+    }    
+#打卡提交函数
+def check_in(deptId,text,stuNum,userName,RuleId,templateid):
+    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
+    jsons=GetUserJson(deptId,text,stuNum,userName,RuleId,templateid)
     #提交打卡
-    count = 0
-    while (count < 3):
-        response = requests.post(sign_url, json=jsons)
-        if response.json()["msg"] == '成功':
-            print(response.text)
-            msg = "打卡成功-" + strTime
-            break
-        else:
-            print(response.text)
-            msg = "打卡异常-" + strTime
-            count = count + 1
-            print('打卡失败，开始第%d次重试...'%(count))
-            time.sleep(15)
-    print(msg)
+    response = requests.post(sign_url, json=jsons)
+    return response
 
-    #微信通知
-    def WechatPush(msg):    
-        title = msg
-        result = json.dumps(response.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
-        content = f"""
+#微信通知
+def WechatPush(msg,sckey,response):    
+    title = msg
+    result = json.dumps(response.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
+    content = f"""
     
 ```
 {result}
@@ -135,18 +137,15 @@ def main():
 ### 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 
         """
-        data = {
+    data = {
             "text":title,
             "desp":content
-        }
-        req = requests.post(sckey,data = data)
-        if req.json()["errmsg"] == 'success':
-            print("Server酱推送服务成功")
-        else:
-            print("Server酱推送服务失败")
-
-    if  msg:
-        WechatPush(msg)
+    }
+    req = requests.post(sckey,data = data)
+    if req.json()["errmsg"] == 'success':
+        print("Server酱推送服务成功")
+    else:
+        print("Server酱推送服务失败")
 
 if __name__ == '__main__':
     main()
