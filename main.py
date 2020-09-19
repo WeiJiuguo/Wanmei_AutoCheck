@@ -48,7 +48,7 @@ def main():
         print("获取deptId失败！")
         exit(1)
     #早中午判断
-    nowTime = (time.localtime().tm_hour-1 ) % 24
+    nowTime = (time.localtime().tm_hour + 8 ) % 24
     if (nowTime >= 6) & (nowTime < 8):
         templateid = "clockSign1"
         RuleId = 146
