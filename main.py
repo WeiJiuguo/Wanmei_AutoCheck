@@ -61,7 +61,6 @@ def main():
         exit(0)
 
     #提交打卡
-<<<<<<< HEAD
     for index,value in enumerate(stuNum):
         cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
         strTime = cstTime.strftime("%H:%M:%S")
@@ -114,25 +113,6 @@ def GetDeptId(text):
         exit(1)
     return deptId
 #打卡参数配置函数
-=======
-    count = 0
-    while (count < 3):
-        response = check_in(deptId,text,stuNum,userName,RuleId,templateid)
-        if response.status_code == 200:
-            print(response.text)
-            msg = "打卡成功-" + strTime
-            break
-        else:
-            print(response.text)
-            msg = "打卡异常-" + strTime
-            count = count + 1
-            print('打卡失败，开始第%d次重试...'%(count))
-            time.sleep(15)
-    print(msg)
-    if  msg:
-        WechatPush(msg,sckey,response)
-    #打卡参数配置函数
->>>>>>> f38a11066bd19030209fe976172c19ad017264f6
 def GetUserJson(deptId,text,stuNum,userName,RuleId,templateid):
     #随机温度(36.2~36.8)
     a=random.uniform(36.2,36.8)
