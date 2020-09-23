@@ -89,7 +89,7 @@ def main():
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
-    title = "%s人打卡成功,%s人打卡失败!"%(len(success),len(fail)) + "时间：" + strTime 
+    title = "%s人打卡成功,%s人打卡失败-"%(len(success),len(fail)) + strTime 
     if  len(sckey[0])>2:
         print('主用户开始微信推送...')
         WechatPush(title,sckey[0],success,fail,result)
