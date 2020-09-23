@@ -29,8 +29,5 @@ jobs:
     - name: Run
       run: |
         python3 main.py <<EOF
-        ${{secrets.TEXT}}
-        ${{secrets.USERNAME}}
-        ${{secrets.STUNUM}}
-        ${{secrets.URL}}
+        ${{secrets.USERS}}
         EOF
