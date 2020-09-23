@@ -68,7 +68,7 @@ def main():
     count = 0
     while (count < 3):
         response = check_in(deptId,text,stuNum,userName,RuleId,templateid)
-        if response.json()["msg"] == '成功':
+        if response.status_code == 200:
             print(response.text)
             msg = "打卡成功-" + strTime
             break
