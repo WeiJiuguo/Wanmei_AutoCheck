@@ -33,7 +33,7 @@ def main():
     sckey = []
     success = []
     failure = []
-    result = {"msg":"主用户打卡出错"}
+    result = []
     #多人循环录入
     while True:  
         try:
@@ -69,11 +69,16 @@ def main():
         while (count < 3):
             try:
                 response = check_in(text[index],stuNum[index],userName[index],RuleId,templateid)
-                if  response.json()["msg"] == '成功':
+                if  response.json()["msg"] == '成功'and count == 0:
                     success.append(value[-6:])
                     print(response.text)
                     msg = value[-6:]+"打卡成功-" + strTime
                     result=response
+                    break
+                elif response.json()["msg"] == '成功':
+                    success.append(value[-6:])
+                    print(response.text)
+                    msg = value[-6:]+"打卡成功-" + strTime
                     break
                 else:
                     failure.append(value[-6:])
@@ -89,11 +94,15 @@ def main():
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
+    cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
+    strTime = cstTime.strftime("%H:%M:%S")
     title = "%s人打卡成功,%s人打卡失败-"%(len(success),len(fail)) + strTime 
-    if  len(sckey[0])>2:
-        print('主用户开始微信推送...')
-        WechatPush(title,sckey[0],success,fail,result)
-
+    try:
+        if  len(sckey[0])>2:
+            print('主用户开始微信推送...')
+            WechatPush(title,sckey[0],success,fail,result)
+    except:
+        print("Maybe主用户打卡失败!")
 #班级获取函数
 def GetDeptId(text):
     try:
