@@ -92,6 +92,7 @@ def main():
             except:
                 print("服务器错误！")
                 failure.append(value[-6:])
+                break
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
