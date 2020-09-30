@@ -50,7 +50,7 @@ def main():
     if (nowTime >= 6) & (nowTime < 8):
         templateid = "clockSign1"
         RuleId = 146
-    elif (nowTime >= 12) & (nowTime < 14):
+    elif (nowTime >= 11) & (nowTime < 15):
         templateid = "clockSign2"
         RuleId = 147
     elif (nowTime >= 21) & (nowTime< 22):
