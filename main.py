@@ -92,6 +92,7 @@ def main():
             except:
                 print("服务器错误！")
                 failure.append(value[-6:])
+                msg = "请仔细检查USERS!"
                 break
         print(msg)
         print("-----------------------")
