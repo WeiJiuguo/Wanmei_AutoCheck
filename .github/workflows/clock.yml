@@ -19,7 +19,13 @@ jobs:
     - name: requirements
       run: |
         pip3 install -r requirements.txt
-  
+
+    - name: Install Python3	
+      run: |	
+        sudo apt update && \	
+        sudo apt install python3  
+        continue-on-error: true
+    
     - name: Run
       run: |
         python3 main.py <<EOF
