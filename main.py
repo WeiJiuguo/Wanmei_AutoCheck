@@ -81,13 +81,13 @@ def main():
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
     strTime = GetNowTime()
-    title = "%s人打卡成功,%s人打卡失败-"%(len(success),len(fail)) + strTime 
+    title = "成功：%s人,失败：%s人-"%(len(success),len(fail)) + strTime 
     try:
         if  len(sckey[0])>2:
             print('主用户开始微信推送...')
             WechatPush(title,sckey[0],success,fail,result)
     except:
-        print("Maybe主用户打卡失败!")
+        print("微信推送出错！")
 #时间函数
 def GetNowTime():
     cstTime = (datetime.datetime.utcnow() + datetime.timedelta(hours=8))
@@ -185,9 +185,11 @@ def WechatPush(title,sckey,success,fail,result):
 #### 打卡成功用户：
 `{success}` 
 #### 打卡失败用户:
-`{fail}``
+`{fail}`
 #### 主用户打卡信息:
-`{page}`
+```
+{page}
+```
 ### 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 
         """
