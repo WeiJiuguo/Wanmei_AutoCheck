@@ -77,7 +77,7 @@ def main():
                 msg = "出现错误"
                 failure.append(value[-4:])
                 break
-        print("msg")
+        print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
     strTime = GetNowTime()
