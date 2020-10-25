@@ -4,6 +4,10 @@ import requests
 import random
 import datetime
 import os
+import sys
+from campus import CampusCard
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 #json读取函数
 def GetFromJSON(filename): 
@@ -27,26 +31,27 @@ AllClass = jsonDic['data']['classAll']
 
 def main():
     #sectets字段录入
-    userName = []
-    stuNum = []
+    
     text = []
     sckey = []
     success = []
     failure = []
     result = []
+    phone = []
+    password = []
     #多人循环录入
     while True:  
         try:
             users = input()
             info = users.split(',')
-            userName.append(info[0])
-            stuNum.append(info[1])
+            phone.append(info[0])
+            password.append(info[1])
             text.append(info[2])
             sckey.append(info[3])
         except:
             break
     #早中午判断
-    nowTime = (time.localtime().tm_hour + 8 ) % 24
+    nowTime = (time.localtime().tm_hour  ) % 24
     if (nowTime >= 6) & (nowTime < 8):
         templateid = "clockSign1"
         RuleId = 146
@@ -61,17 +66,33 @@ def main():
         exit(0)
 
     #提交打卡
-    for index,value in enumerate(stuNum):
+    for index,value in enumerate(phone):
         print("开始获取用户%sDeptId"%(value[-6:]))
         count = 0
         while (count < 3):
             try:
-                response = check_in(text[index],stuNum[index],userName[index],RuleId,templateid)
+                campus = CampusCard(phone[index], password[index])
+                loginJson = campus.get_main_info()
+                print(loginJson)
+                token = campus.user_info["sessionId"]
+                print(token)
+                stuNum = loginJson["outid"]
+                userName = loginJson["name"]
+                print(stuNum,userName)
+                time.sleep(5)
+                response = check_in(text[index],stuNum,userName,RuleId,templateid,token)
                 if  response.json()["msg"] == '成功'and count == 0:
                     strTime = GetNowTime()
                     success.append(value[-6:])
                     print(response.text)
                     msg = value[-6:]+"打卡成功-" + strTime
+                    result=response
+                    break
+                elif response.json()["msg"] == '业务异常'and count == 0:
+                    strTime = GetNowTime()
+                    failure.append(value[-6:])
+                    print(response.text)
+                    msg = value[-6:]+"打卡失败-" + strTime
                     result=response
                     break
                 elif response.json()["msg"] == '成功':
@@ -130,7 +151,7 @@ def GetDeptId(text):
         exit(1)
     return deptId
 #打卡参数配置函数
-def GetUserJson(deptId,text,stuNum,userName,RuleId,templateid):
+def GetUserJson(deptId,text,stuNum,userName,RuleId,templateid,token):
     #随机温度(36.2~36.8)
     a=random.uniform(36.2,36.8)
     temperature = round(a, 1)
@@ -162,16 +183,24 @@ def GetUserJson(deptId,text,stuNum,userName,RuleId,templateid):
             }
         ],
         "customerAppTypeRuleId": RuleId,
-        "clockState": 0
+        "clockState": 0,
+        "token": token
         },
+        "token": token
     }    
+
 #打卡提交函数
-def check_in(text,stuNum,userName,RuleId,templateid):
+def check_in(text,stuNum,userName,RuleId,templateid,token):
     deptId = GetDeptId(text)
     sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
-    jsons=GetUserJson(deptId,text,stuNum,userName,RuleId,templateid)
+    auth_url = "https://reportedh5.17wanxiao.com/api/authen/user"
+    jsons=GetUserJson(deptId,text,stuNum,userName,RuleId,templateid,token)
+    response = requests.post(auth_url,
+        data={"token=%s"%(token)}
+        )
+    print(response.text)
     #提交打卡
-    response = requests.post(sign_url, json=jsons)
+    response = requests.post(sign_url, json=jsons,)
     return response
 
 #微信通知
