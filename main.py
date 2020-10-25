@@ -182,18 +182,12 @@ def GetFromJSON(filename):
 def WechatPush(title,sckey,success,fail,result):    
     page = json.dumps(result.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
     content = f"""
-### 打卡成功用户：
-```
-{success}
-```    
-### 打卡失败用户:
-```
-{fail}
-```
-### 主用户打卡信息:
-```
-{page}
-```
+#### 打卡成功用户：
+`{success}` 
+#### 打卡失败用户:
+`{fail}``
+#### 主用户打卡信息:
+`{page}`
 ### 😀[收藏](https://github.com/YooKing/HAUT_autoCheck)此项目
 
         """
