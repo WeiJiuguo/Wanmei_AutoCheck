@@ -74,9 +74,10 @@ def main():
                     time.sleep(15)
         
             except:
-                print("出现错误！")
+                msg = "出现错误"
                 failure.append(value[-4:])
                 break
+        print("msg")
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
     strTime = GetNowTime()
