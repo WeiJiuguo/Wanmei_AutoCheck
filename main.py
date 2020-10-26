@@ -81,7 +81,7 @@ def main():
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
     strTime = GetNowTime()
-    title = "成功：%s人,失败：%s人-"%(len(success),len(fail)) + strTime 
+    title = "成功: %s 人,失败: %s 人"%(len(success),len(fail))
     try:
         if  len(sckey[0])>2:
             print('主用户开始微信推送...')
@@ -180,8 +180,10 @@ def GetFromJSON(filename):
 
 #微信通知
 def WechatPush(title,sckey,success,fail,result):    
+    strTime = GetNowTime()
     page = json.dumps(result.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
     content = f"""
+`{strTime}`` 
 #### 打卡成功用户：
 `{success}` 
 #### 打卡失败用户:
