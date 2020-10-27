@@ -42,7 +42,7 @@ def main():
                 stuNum = loginJson["outid"]
                 userName = loginJson["name"]  
                 driver.get('https://reportedh5.17wanxiao.com/collegeHealthPunch/index.html?token=%s#/punch?punchId=180'%token)
-                time.sleep(10)
+                #time.sleep(10)
                 response = check_in(text[index],stuNum,userName,RuleId,templateid,token)
                 if  response.json()["msg"] == '成功'and count == 0:
                     strTime = GetNowTime()
