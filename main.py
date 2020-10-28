@@ -57,7 +57,7 @@ def main():
                     print(response.text)
                     msg = value[-4:]+"打卡失败-" + strTime
                     result=response
-                    break
+                    count = count + 1
                 elif response.json()["msg"] == '成功':
                     strTime = GetNowTime()
                     success.append(value[-4:])
@@ -66,9 +66,9 @@ def main():
                     break
                 else:
                     strTime = GetNowTime()
-                    failure.append(value[-6:])
+                    failure.append(value[-4:])
                     print(response.text)
-                    msg = value[-6:] + "打卡异常-" + strTime
+                    msg = value[-4:] + "打卡异常-" + strTime
                     count = count + 1
                     print('%s打卡失败，开始第%d次重试...'%(value[-6:],count))
                     time.sleep(15)
