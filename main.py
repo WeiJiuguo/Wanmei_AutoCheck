@@ -44,14 +44,14 @@ def main():
                 driver.get('https://reportedh5.17wanxiao.com/collegeHealthPunch/index.html?token=%s#/punch?punchId=180'%token)
                 #time.sleep(10)
                 response = check_in(text[index],stuNum,userName,RuleId,templateid,token)
-                if  response.json()["msg"] == '成功'and count == 0:
+                if  response.json()["msg"] == '成功'and index == 0:
                     strTime = GetNowTime()
                     success.append(value[-4:])
                     print(response.text)
                     msg = value[-4:]+"打卡成功-" + strTime
                     result=response
                     break
-                elif response.json()["msg"] == '业务异常'and count == 0:
+                elif response.json()["msg"] == '业务异常'and index == 0:
                     strTime = GetNowTime()
                     failure.append(value[-4:])
                     print(response.text)
