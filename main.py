@@ -21,7 +21,7 @@ def main():
     for index,value in enumerate(phone):
         print("开始尝试为用户%s打卡"%(value[-4:]))
         count = 0
-        while (count < 3):
+        while (count <= 3):
             try:
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
@@ -37,9 +37,9 @@ def main():
                     failure.append(value[-4:])
                     print(response.text)
                     msg =  strTime + value[-4:] + "打卡异常"
-                    print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
                     count = count + 1
-                    time.sleep(2)
+                    print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
+                    time.sleep(15)
                 if index == 0:
                     result=response
             except AttributeError:
