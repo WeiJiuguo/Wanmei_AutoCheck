@@ -40,7 +40,7 @@ def main():
                     count = count + 1
                     if count<=3:
                         print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
-                    time.sleep(15)
+                    time.sleep(5)
                 if index == 0:
                     result=response
             except AttributeError:
