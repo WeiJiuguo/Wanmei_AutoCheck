@@ -55,7 +55,7 @@ def main():
                     time.sleep(15)
 
             except AttributeError:
-                print('%s获取信息失败，请检查密码！'%phone[index])
+                print('%s获取信息失败，请检查密码！'%value[-4:])
                 break
 
             except Exception as e:
@@ -89,18 +89,18 @@ def getUserJson(userInfo,token):
         "method": "submitUpInfoSchool",
         "jsonData": {
         "deptStr": {
-            "deptid": userInfo.classId,
-            "text": userInfo.classDescription
+            "deptid": userInfo['classId'],
+            "text": userInfo['classDescription']
         },
         #如果你来自其他学校，请自行打卡抓包修改地址字段
         "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
         "reportdate": round(time.time()*1000),
-        "customerid": userInfo.customerId,
-        "deptid": userInfo.classId,
+        "customerid": userInfo['customerId'],
+        "deptid": userInfo['classId'],
         "source": "app",
         "templateid": "clockSign2",
-        "stuNo": userInfo.stuNo,
-        "username": userInfo.username,
+        "stuNo": userInfo['stuNo'],
+        "username": userInfo['username'],
         "userid": round(time.time()),
         "updatainfo": [  
             {
@@ -125,7 +125,7 @@ def getUserInfo(token):
     sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
     #提交打卡
     response = requests.post(sign_url, data=token)
-    return json.loads(response.text)
+    return response.json()['userInfo']
 
 #打卡提交函数
 def checkIn(userInfo,token):
