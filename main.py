@@ -28,19 +28,7 @@ def main():
                 userInfo=getUserInfo(token)
                 response = checkIn(userInfo,token)
                 strTime = getNowTime()
-                if  response.json()["msg"] == '成功'and index == 0:
-                    success.append(value[-4:])
-                    print(response.text)
-                    msg = strTime + value[-4:]+"打卡成功"
-                    result=response
-                    break
-                elif response.json()["msg"] == '业务异常'and index == 0:
-                    failure.append(value[-4:])
-                    print(response.text)
-                    msg = strTime + value[-4:]+"打卡失败"
-                    result=response
-                    count = count + 1
-                elif response.json()["msg"] == '成功':
+                if response.json()["msg"] == '成功':
                     success.append(value[-4:])
                     print(response.text)
                     msg = strTime + value[-4:]+"打卡成功"
@@ -49,14 +37,14 @@ def main():
                     failure.append(value[-4:])
                     print(response.text)
                     msg =  strTime + value[-4:] + "打卡异常"
-                    count = count + 1
                     print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
-                    time.sleep(15)
-
+                    count = count + 1
+                    time.sleep(2)
+                if index == 0:
+                    result=response
             except AttributeError:
                 print('%s获取信息失败，请检查密码！'%value[-4:])
                 break
-
             except Exception as e:
                 print(e.__class__)
                 msg = "出现错误"
