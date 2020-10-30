@@ -26,7 +26,6 @@ def main():
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
                 userInfo=getUserInfo(token)
-                #time.sleep(10)
                 response = checkIn(userInfo,token)
                 strTime = getNowTime()
                 if  response.json()["msg"] == '成功'and index == 0:
@@ -156,8 +155,9 @@ def wechatPush(title,sckey,success,fail,result):
             "text":title,
             "desp":content
     }
+    scurl='https://sc.ftqq.com/'+sckey+'.send'
     try:
-        req = requests.post(sckey,data = data)
+        req = requests.post(scurl,data = data)
         if req.json()["errmsg"] == 'success':
             print("Server酱推送服务成功")
         else:
