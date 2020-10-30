@@ -15,8 +15,7 @@ def main():
             password.append(info[1])
             sckey.append(info[2])
         except Exception as e:
-            print(e.__class__)
-            exit(1)
+            break
 
     #提交打卡
     for index,value in enumerate(phone):
