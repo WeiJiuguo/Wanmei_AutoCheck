@@ -14,7 +14,7 @@ def main():
             phone.append(info[0])
             password.append(info[1])
             sckey.append(info[2])
-        except Exception as e:
+        except:
             break
 
     #提交打卡
