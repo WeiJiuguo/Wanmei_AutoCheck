@@ -32,17 +32,19 @@ def main():
                     success.append(value[-4:])
                     print(response.text)
                     msg = strTime + value[-4:]+"打卡成功"
+                    if index == 0:
+                        result=response
                     break
                 else:
                     failure.append(value[-4:])
                     print(response.text)
                     msg =  strTime + value[-4:] + "打卡异常"
                     count = count + 1
+                    if index == 0:
+                        result=response
                     if count<=3:
                         print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
                     time.sleep(5)
-                if index == 0:
-                    result=response
             except AttributeError:
                 print('%s获取信息失败，请检查密码！'%value[-4:])
                 break
