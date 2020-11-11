@@ -4,7 +4,7 @@
 - 随机温度(36.2℃-36.8℃)🌡，随机经纬度🌍
 - 多人打卡👨‍👩‍👧‍👧，一人微信通知全部打卡结果💬
 - 校内打卡:11:30🕑
-- 基于Github Actions，完全解放你的设备和服务器✔
+- 基于Github Actions，完全解放你的设备和服务器✔ 
 - 有任何问题可以提交[issues](https://github.com/YooKing/HAUT_autoCheck/issues/new)
 ## 使用方法 
 [进入WIKI](https://github.com/YooKing/HAUT_autoCheck/wiki)
