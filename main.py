@@ -45,9 +45,6 @@ def main():
                     if count<=3:
                         print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
                     time.sleep(5)
-            except AttributeError:
-                print('%s获取信息失败，请检查密码！'%value[-4:])
-                break
             except Exception as e:
                 print(e.__class__)
                 msg = "出现错误"
