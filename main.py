@@ -143,7 +143,7 @@ def getUserJson(userInfo,token):
                 "value":"否"
             },
             {
-                "propertyname":"medicalObservation,
+                "propertyname":"medicalObservation",
                 "value":"绿色"
             },
             {
