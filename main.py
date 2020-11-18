@@ -29,26 +29,26 @@ def main():
                 response = checkIn(userInfo,token)
                 strTime = getNowTime()
                 if response.json()["msg"] == '成功':
-                    success.append(value[-4:])
+                    success.append(userInfo['username'])
                     print(response.text)
-                    msg = strTime + value[-4:]+"打卡成功"
+                    msg = strTime + userInfo['username']+"打卡成功"
                     if index == 0:
                         result=response
                     break
                 else:
-                    failure.append(value[-4:])
+                    failure.append(userInfo['username'])
                     print(response.text)
-                    msg =  strTime + value[-4:] + "打卡异常"
+                    msg =  strTime + userInfo['username'] + "打卡异常"
                     count = count + 1
                     if index == 0:
                         result=response
                     if count<=3:
-                        print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
+                        print('%s打卡失败，开始第%d次重试...'%(userInfo['username'],count))
                     time.sleep(5)
             except Exception as e:
                 print(e.__class__)
                 msg = "出现错误"
-                failure.append(value[-4:])
+                failure.append(userInfo['username'])
                 break
         print(msg)
         print("-----------------------")
