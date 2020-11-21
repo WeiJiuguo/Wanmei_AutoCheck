@@ -5,7 +5,6 @@
 - 多人打卡👨‍👩‍👧‍👧，一人微信通知全部打卡结果💬
 - 校内打卡:6:30🕑
 - 基于Github Actions，完全解放服务器✔
-- 有任何问题可以提交[issues]
 ## 使用方法 
 [进入WIKI](https://github.com/YooKing/HAUT_autoCheck/wiki)
 - [开始](https://github.com/YooKing/HAUT_autoCheck/wiki#开始)
