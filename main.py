@@ -201,15 +201,6 @@ def wechatPush(title,sckey,success,fail,result):
 ### 😀
 
         """
-    
-    body = {
-    "token":"10f179ec7405a6426d87b0e42b3aca51",
-    "group_id":"1049598285",
-    "message":"早上好，今日6：30打卡用户如下"+success,
-    "auto_escape":true
-    }
-    scurl0='http://api.qqpusher.yanxianjun.com/send_group_ms'
-    requests.post(scurl0,data=body)
     data = {
             "text":title,
             "desp":content
@@ -223,6 +214,14 @@ def wechatPush(title,sckey,success,fail,result):
             print("Server酱推送服务失败")
     except:
         print("微信推送参数错误")
+    body = {
+             "token":"10f179ec7405a6426d87b0e42b3aca51",
+             "user_id":"2926295173",
+             "message":"早上好，今日6：30打卡用户如下:"+success,
+             "auto_escape":true
+    }
+    scurl0='http://api.qqpusher.yanxianjun.com/send_group_ms'
+    requests.post(scurl0,data=body)
 
 if __name__ == '__main__':
     main()
