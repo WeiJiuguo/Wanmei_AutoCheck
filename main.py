@@ -214,14 +214,12 @@ def wechatPush(title,sckey,success,fail,result):
             print("Server酱推送服务失败")
     except:
         print("微信推送参数错误")
-    body = {
-             "token":"10f179ec7405a6426d87b0e42b3aca51",
-             "user_id":"2926295173",
-             "message":"早上好，今日6：30打卡用户如下:"+success,
-             "auto_escape":true
+    headers = {
+    “User-Agent”: “Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36”,
     }
-    scurl0='http://api.qqpusher.yanxianjun.com/send_private_ms'
-    requests.post(scurl0,data=body)
+    url = “http://api.qqpusher.yanxianjun.com/send_private_msg?token=10f179ec7405a6426d87b0e42b3aca51&user_id=2926295173&message=消息内容"
+    response = requests.get(url, headers=headers).text
+    print(response))
 
 if __name__ == '__main__':
     main()
