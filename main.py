@@ -214,12 +214,22 @@ def wechatPush(title,sckey,success,fail,result):
             print("Server酱推送服务失败")
     except:
         print("微信推送参数错误")
-    headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
+    data={
+        "token":"10f179ec7405a6426d87b0e42b3aca51",
+        "group_id":"698639533",
+        "message":"早上好，今日已经早早打卡的用户如下"+success,
+        "auto_escape":true
     }
-    url = 'http://api.qqpusher.yanxianjun.com/send_private_msg?token=10f179ec7405a6426d87b0e42b3aca51&user_id=2926295173&message=(｡･∀･)ﾉﾞ嗨，今日，\n'+success+'等同学6:30就完成了打卡任务，大家太棒了请继续努力!,还有没打卡的同学请尽快完成打卡任务哦！'
-    response = requests.get(url, headers=headers).text
-    print(response)
+    qq_url='http://api.qqpusher.yanxianjun.com/send_group_msg'
+    try:
+        req=requests.post(qq_url,data)
+        print(req.json())
+        if req.json()['status']==true:
+            print("QQ推送成功")
+        else:
+            print("QQ推送失败")
+    except:
+        print("QQ推送参数错误")
 
 if __name__ == '__main__':
     main()
