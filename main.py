@@ -206,7 +206,7 @@ def wechatPush(title,sckey,success,fail,result):
     "token":"10f179ec7405a6426d87b0e42b3aca51",
     "group_id":"1049598285",
     "message":"早上好，今日6：30打卡用户如下"+success,
-    "auto_escape":true // 默认值：false 消息内容是否作为纯文本发送（即不解析 CQ 码），只在 message 字段是字符串时有效
+    "auto_escape":true
     }
     scurl0='http://api.qqpusher.yanxianjun.com/send_group_ms'
     requests.post(scurl0,data=body)
