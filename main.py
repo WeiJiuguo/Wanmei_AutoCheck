@@ -219,7 +219,7 @@ def wechatPush(title,sckey,success,fail,result):
     }
     url = 'http://api.qqpusher.yanxianjun.com/send_private_msg?token=10f179ec7405a6426d87b0e42b3aca51&user_id=2926295173&message=消息内容'
     response = requests.get(url, headers=headers).text
-    print(response))
+    print(response)
 
 if __name__ == '__main__':
     main()
