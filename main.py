@@ -220,7 +220,7 @@ def wechatPush(title,sckey,success,fail,result):
              "message":"早上好，今日6：30打卡用户如下:"+success,
              "auto_escape":true
     }
-    scurl0='http://api.qqpusher.yanxianjun.com/send_group_ms'
+    scurl0='http://api.qqpusher.yanxianjun.com/send_private_ms'
     requests.post(scurl0,data=body)
 
 if __name__ == '__main__':
