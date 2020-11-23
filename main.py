@@ -59,6 +59,22 @@ def main():
         wechatPush(title,sckey[0],success,fail,result)
     except:
         print("微信推送出错！")
+    data={
+        "token":"10f179ec7405a6426d87b0e42b3aca51",
+        "group_id":"698639533",
+        "message":"早上好，今日已经早早打卡的用户如下"+success,
+        "auto_escape":True
+    }
+    qq_url='http://api.qqpusher.yanxianjun.com/send_group_msg'
+    try:
+        req=requests.post(qq_url,data)
+        print(req.json())
+        if req.json()['status']==True:
+            print("QQ推送成功")
+        else:
+            print("QQ推送失败")
+    except:
+        print("QQ推送参数错误")
 
 #时间函数
 def getNowTime():
@@ -68,8 +84,8 @@ def getNowTime():
 
 #打卡参数配置函数
 def getUserJson(userInfo,token):
-    #随机温度(36.2~36.8)
-    a=random.uniform(36.2,36.8)
+    #随机温度(36.2~36.5)
+    a=random.uniform(36.2,36.5)
     temperature = round(a, 1)
     return  {
         "businessType": "epmpics",
@@ -214,22 +230,7 @@ def wechatPush(title,sckey,success,fail,result):
             print("Server酱推送服务失败")
     except:
         print("微信推送参数错误")
-    data={
-        "token":"10f179ec7405a6426d87b0e42b3aca51",
-        "group_id":"698639533",
-        "message":"早上好，今日已经早早打卡的用户如下"+success,
-        "auto_escape":True
-    }
-    qq_url='http://api.qqpusher.yanxianjun.com/send_group_msg'
-    try:
-        req=requests.post(qq_url,data)
-        print(req.json())
-        if req.json()['status']==True:
-            print("QQ推送成功")
-        else:
-            print("QQ推送失败")
-    except:
-        print("QQ推送参数错误")
+    
 
 if __name__ == '__main__':
     main()
