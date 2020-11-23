@@ -218,13 +218,13 @@ def wechatPush(title,sckey,success,fail,result):
         "token":"10f179ec7405a6426d87b0e42b3aca51",
         "group_id":"698639533",
         "message":"早上好，今日已经早早打卡的用户如下"+success,
-        "auto_escape":true
+        "auto_escape":True
     }
     qq_url='http://api.qqpusher.yanxianjun.com/send_group_msg'
     try:
         req=requests.post(qq_url,data)
         print(req.json())
-        if req.json()['status']==true:
+        if req.json()['status']==True:
             print("QQ推送成功")
         else:
             print("QQ推送失败")
