@@ -12,4 +12,4 @@
 - [关闭打卡](https://github.com/YooKing/HAUT_autoCheck/wiki#关闭打卡)  
 - ~~[抓包](https://github.com/YooKing/HAUT_autoCheck/wiki#zhuabao)~~(本校无需抓包，使用[模拟登录](https://github.com/zhongbr/wanmei_campus)获取打卡信息。)
 ## 鸣谢
-本项目以YooKing大佬的代码进行深度适配，谢谢
+本项目以YooKing大佬的代码进行深度适配
