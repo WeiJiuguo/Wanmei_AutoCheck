@@ -47,9 +47,15 @@ def main():
                     time.sleep(5)
             except Exception as e:
                 print(e.__class__)
-                msg = "出现错误"
                 failure.append(value[-4:])
-                break
+                print(response.text)
+                msg = strTime + value[-4:] +"出现错误"
+                count = count + 1
+                if index == 0:
+                    result=response
+                if count<=3:
+                    print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
+                time.sleep(5)
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
