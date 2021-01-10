@@ -4,6 +4,7 @@ from campus import CampusCard
 def main():
     #校内校外开关
     #定义变量
+    mark = 1
     success,failure=[],[]
     #sectets字段录入
     phone, password, sckey = [], [], []
@@ -27,18 +28,23 @@ def main():
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
                 userInfo=getUserInfo(token)
-                response = checkIn(userInfo,token)
+                print(userInfo)
+                if mark == 0:
+                    response = checkIn(userInfo,token)
+                if mark == 1:
+                    ownPhone=phone[index]
+                    response = check(ownPhone,userInfo,token)
                 strTime = getNowTime()
                 if response.json()["msg"] == '成功':
                     success.append(value[-4:])
-                    print(response.json()["msg"])
+                    print(response.text)
                     msg = strTime + value[-4:]+"打卡成功"
                     if index == 0:
                         result=response
                     break
                 else:
                     failure.append(value[-4:])
-                    print(response.json()["msg"])
+                    print(response.text)
                     msg =  strTime + value[-4:] + "打卡异常"
                     count = count + 1
                     if index == 0:
@@ -49,7 +55,7 @@ def main():
             except Exception as e:
                 print(e.__class__)
                 failure.append(value[-4:])
-                print(response.json()["msg"])
+                print(response.text)
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
                 if index == 0:
@@ -73,14 +79,21 @@ def getNowTime():
     strTime = cstTime.strftime("%H:%M:%S ")
     return strTime
 
-#打卡参数配置函数
-def getUserJson(userInfo,token):
-    #随机温度(36.2~36.8)
+#信息获取函数
+def getUserInfo(token):
+    token={'token':token}
+    sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
+    #提交打卡
+    response = requests.post(sign_url, data=token)
+    return response.json()['userInfo']
+
+#校内打卡提交函数
+def checkIn(userInfo,token):
+    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
+     #随机温度(36.2~36.8)
     a=random.uniform(36.2,36.8)
     temperature = round(a, 1)
-    mark = 1
-    if mark == 0:
-        json = {
+    jsons={
             "businessType": "epmpics",
             "method": "submitUpInfoSchool",
             "jsonData": {
@@ -113,32 +126,58 @@ def getUserJson(userInfo,token):
             "token": token
             },
             "token": token
-            }
-    else:
-        json = {
+    }
+    #提交打卡
+    response = requests.post(sign_url, json=jsons)
+    return response
+
+#校外打卡
+def check(ownPhone,userInfo,token):
+    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
+    post_json = {
             "businessType": "epmpics",
             "jsonData": {
             "templateid": "pneumonia",
             "token": token
         },
             "method": "getUpDataInfoDetail"
+    }      
+    response = requests.post(sign_url, json=post_json).json()
+    data = json.loads(response['data'])
+    info_dict = {
+            "add":data['add'],
+            "areaStr": data['areaStr'],
+            "updatainfo": [{"propertyname": i["propertyname"], "value": i["value"]} for i in
+                            data['cusTemplateRelations']]
         }
-    return json
-#信息获取函数
-def getUserInfo(token):
-    token={'token':token}
-    sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
-    #提交打卡
-    response = requests.post(sign_url, data=token)
-    return response.json()['userInfo']
-
-#打卡提交函数
-def checkIn(userInfo,token):
-    sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
-    jsons=getUserJson(userInfo,token)
-    #提交打卡
-    response = requests.post(sign_url, json=jsons)
-    return response
+    check_json = {
+    "businessType": "epmpics",
+    "method": "submitUpInfo",
+    "jsonData": {
+        "add": data['add'],
+        "areaStr": info_dict['areaStr'],
+        "cardNo": "null",
+        "customerid": userInfo['customerId'],
+        "deptStr": {
+            "deptid": userInfo['classId'],
+            "text": userInfo['classDescription'],
+        },
+        "phonenum": ownPhone,
+        "stuNo": userInfo['stuNo'],
+        "templateid": "pneumonia",
+        "upTime": "null",
+        "userid": userInfo['userId'],
+        "username": userInfo['username'],
+        "deptid": userInfo['classId'],
+        "updatainfo": info_dict['updatainfo'],
+        "source": "app",
+        "reportdate": round(time.time()),
+        "gpsType": 1,
+        "token": token
+    }
+}
+    res = requests.post(sign_url, json=check_json) 
+    return res
 
 #微信通知
 def wechatPush(title,sckey,success,fail,result):    
@@ -172,4 +211,5 @@ def wechatPush(title,sckey,success,fail,result):
         print("微信推送参数错误")
 
 if __name__ == '__main__':
+    mark = 1
     main()
