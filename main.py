@@ -3,8 +3,8 @@ from campus import CampusCard
 
 def main():
     #校内校外开关
-    #定义变量
     mark = 1
+    #定义变量
     success,failure=[],[]
     #sectets字段录入
     phone, password, sckey = [], [], []
