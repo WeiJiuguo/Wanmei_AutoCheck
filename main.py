@@ -2,6 +2,7 @@ import time,json,requests,random,datetime
 from campus import CampusCard
 
 def main():
+    #校内校外开关
     #定义变量
     success,failure=[],[]
     #sectets字段录入
@@ -30,14 +31,14 @@ def main():
                 strTime = getNowTime()
                 if response.json()["msg"] == '成功':
                     success.append(value[-4:])
-                    print(response.text)
+                    print(response.json()["msg"])
                     msg = strTime + value[-4:]+"打卡成功"
                     if index == 0:
                         result=response
                     break
                 else:
                     failure.append(value[-4:])
-                    print(response.text)
+                    print(response.json()["msg"])
                     msg =  strTime + value[-4:] + "打卡异常"
                     count = count + 1
                     if index == 0:
@@ -48,7 +49,7 @@ def main():
             except Exception as e:
                 print(e.__class__)
                 failure.append(value[-4:])
-                print(response.text)
+                print(response.json()["msg"])
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
                 if index == 0:
@@ -77,41 +78,52 @@ def getUserJson(userInfo,token):
     #随机温度(36.2~36.8)
     a=random.uniform(36.2,36.8)
     temperature = round(a, 1)
-    return  {
-        "businessType": "epmpics",
-        "method": "submitUpInfoSchool",
-        "jsonData": {
-        "deptStr": {
-            "deptid": userInfo['classId'],
-            "text": userInfo['classDescription']
-        },
-        #如果你来自其他学校，请自行打卡抓包修改地址字段
-        "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
-        "reportdate": round(time.time()*1000),
-        "customerid": userInfo['customerId'],
-        "deptid": userInfo['classId'],
-        "source": "app",
-        "templateid": "clockSign2",
-        "stuNo": userInfo['stuNo'],
-        "username": userInfo['username'],
-        "userid": round(time.time()),
-        "updatainfo": [  
-            {
-                "propertyname": "temperature",
-                "value": temperature
+    mark = 1
+    if mark == 0:
+        json = {
+            "businessType": "epmpics",
+            "method": "submitUpInfoSchool",
+            "jsonData": {
+            "deptStr": {
+                "deptid": userInfo['classId'],
+                "text": userInfo['classDescription']
             },
-            {
-                "propertyname": "symptom",
-                "value": "无症状"
+            #如果你来自其他学校，请自行打卡抓包修改地址字段
+            "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
+            "reportdate": round(time.time()*1000),
+            "customerid": userInfo['customerId'],
+            "deptid": userInfo['classId'],
+            "source": "app",
+            "templateid": "clockSign2",
+            "stuNo": userInfo['stuNo'],
+            "username": userInfo['username'],
+            "userid": round(time.time()),
+            "updatainfo": [  
+                {
+                    "propertyname": "temperature",
+                    "value": temperature
+                },
+                {
+                    "propertyname": "symptom",
+                    "value": "无症状"
+                }
+            ],
+            "customerAppTypeRuleId": 147,
+            "clockState": 0,
+            "token": token
+            },
+            "token": token
             }
-        ],
-        "customerAppTypeRuleId": 147,
-        "clockState": 0,
-        "token": token
+    else:
+        json = {
+            "businessType": "epmpics",
+            "jsonData": {
+            "templateid": "pneumonia",
+            "token": token
         },
-        "token": token
-    }    
-
+            "method": "getUpDataInfoDetail"
+        }
+    return json
 #信息获取函数
 def getUserInfo(token):
     token={'token':token}
