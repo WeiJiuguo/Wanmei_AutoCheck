@@ -28,7 +28,6 @@ def main():
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
                 userInfo=getUserInfo(token)
-                print(userInfo)
                 if mark == 0:
                     response = checkIn(userInfo,token)
                 if mark == 1:
@@ -62,7 +61,7 @@ def main():
                     result=response
                 if count<=3:
                     print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
-                time.sleep(5)
+                time.sleep(1)
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
