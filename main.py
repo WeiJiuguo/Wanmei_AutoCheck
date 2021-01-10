@@ -153,7 +153,7 @@ def check(ownPhone,userInfo,token):
     "businessType": "epmpics",
     "method": "submitUpInfo",
     "jsonData": {
-        "add": data['add'],
+        "add": info_dict['add'],
         "areaStr": info_dict['areaStr'],
         "cardNo": "null",
         "customerid": userInfo['customerId'],
