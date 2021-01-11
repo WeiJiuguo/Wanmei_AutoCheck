@@ -54,6 +54,7 @@ def main():
             except Exception as e:
                 print(e.__class__)
                 failure.append(value[-4:])
+                strTime = getNowTime()
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
                 if index == 0:
