@@ -132,6 +132,7 @@ def checkIn(userInfo,token):
 #校外打卡
 def check(ownPhone,userInfo,token):
     sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
+    #获取datajson
     post_json = {
             "businessType": "epmpics",
             "jsonData": {
@@ -148,6 +149,13 @@ def check(ownPhone,userInfo,token):
             "updatainfo": [{"propertyname": i["propertyname"], "value": i["value"]} for i in
                             data['cusTemplateRelations']]
         }
+    #随机温度
+    a=random.uniform(36.2,36.8)
+    temperature = round(a, 1)
+    for i in info_dict['updatainfo']: 
+        if i['propertyname'] == 'temperature':
+            i['value'] = temperature
+    #校外打卡提交json
     check_json = {
     "businessType": "epmpics",
     "method": "submitUpInfo",
