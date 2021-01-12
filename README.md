@@ -7,6 +7,8 @@
 - 基于Github Actions，完全解放你的设备和服务器✔
 - 有任何问题可以提交[issues](https://github.com/YooKing/HAUT_autoCheck/issues/new)
 
+
+
 ## 使用方法 
 [进入WIKI](https://github.com/YooKing/HAUT_autoCheck/wiki)
 - [开始](https://github.com/YooKing/HAUT_autoCheck/wiki#开始)
@@ -16,4 +18,6 @@
 - ~~[抓包](https://github.com/YooKing/HAUT_autoCheck/wiki#zhuabao)~~(本校无需抓包，使用[模拟登录](https://github.com/zhongbr/wanmei_campus)获取打卡信息。)
 
 ## 许可
-本项目以 MIT 协议开源，详情请见 [LICENSE](LICENSE) 文件。
+本项目以 MIT 协议开源，详情请见 [LICENSE](LICENSE) 文件
+
+
