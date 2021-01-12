@@ -1,6 +1,8 @@
 # wanmei_campus
 完美校园模拟登录
 
+[@zhongbr](https://github.com/zhongbr)
+
 ```python3
 from Card import open_device, CampusCard
 
