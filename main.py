@@ -101,7 +101,7 @@ def checkIn(userInfo,token):
                 "text": userInfo['classDescription']
             },
             #如果你来自其他学校，请自行打卡抓包修改地址字段
-            "areaStr": {"streetNumber":"","street":"长椿路辅路","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"河南工业大学(莲花街校区)","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区长椿路辅路河南工业大学(莲花街校区)","text":"河南省-郑州市","code":""},
+            "areaStr": {"streetNumber":"30号","street":"莲花街","district":"中原区","city":"郑州市","province":"河南省","town":"","pois":"翰林国际城孔园","lng":113.55064699999795 + random.random()/1000,"lat":34.83870696238093 + random.random()/1000,"address":"中原区莲花街30号翰林国际城孔园","text":"河南省-郑州市","code":""},
             "reportdate": round(time.time()*1000),
             "customerid": userInfo['customerId'],
             "deptid": userInfo['classId'],
