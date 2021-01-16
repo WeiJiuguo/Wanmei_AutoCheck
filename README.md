@@ -1,4 +1,4 @@
-## HUT_autoCheck
+# HUT_autoCheck
 
 **湖南工业大学完美校园健康打卡**
 - 随机温度(36.2℃-36.8℃)🌡，随机经纬度🌍
@@ -12,4 +12,4 @@
 - [关闭打卡](https://github.com/YooKing/HAUT_autoCheck/wiki#关闭打卡)  
 - ~~[抓包](https://github.com/YooKing/HAUT_autoCheck/wiki#zhuabao)~~(本校无需抓包，使用[模拟登录](https://github.com/zhongbr/wanmei_campus)获取打卡信息。)
 ## 鸣谢
-本项目以YooKing大佬的代码进行深度适
+本项目以YooKing大佬的代码进行深度适配
