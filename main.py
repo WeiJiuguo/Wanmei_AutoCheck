@@ -217,7 +217,7 @@ def wechatPush(title,sckey,success,fail,result):
     data={
         "token":"10f179ec7405a6426d87b0e42b3aca51",
         "group_id":"698639533",
-        "message":"大家早上好呀，今早已经打卡成功的用户如下:\n"+str(success)+"\n打卡失败用户如下:\n"+str(fail)+"\n请打卡出问题的小伙伴联系下小高同学，没打卡的小伙伴尽快打卡。"
+        "message":"大家早上好呀，今早已经打卡成功的用户如下:\n"+str(success)+"\n打卡失败用户手机的后4位尾号如下:\n"+str(value[-4:])+"\n请打卡出问题的小伙伴联系下小高同学，没打卡的小伙伴尽快打卡。"
        
     }
     qq_url='http://api.qqpusher.yanxianjun.com/send_group_msg'
