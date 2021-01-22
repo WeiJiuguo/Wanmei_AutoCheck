@@ -36,7 +36,7 @@ def main():
                         result=response
                     break
                 else:
-                    failure.append(userInfo['username'])
+                    failure.append(value[-4:])
                     print(response.text)
                     msg =  strTime + userInfo['username'] + "打卡异常"
                     count = count + 1
@@ -48,7 +48,7 @@ def main():
             except Exception as e:
                 print(e.__class__)
                 msg = "出现错误"
-                failure.append(userInfo['username'])
+                failure.append(value[-4:])
                 break
         print(msg)
         print("-----------------------")
