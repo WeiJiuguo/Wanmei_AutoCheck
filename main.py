@@ -63,11 +63,10 @@ def main():
                 strTime = getNowTime()
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
-                if index == 0 & response:
-                    result=response
+                result = "出现错误" 
                 if count<=3:
                     print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
-                time.sleep(1)
+                time.sleep(5)
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
