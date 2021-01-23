@@ -25,9 +25,15 @@ def main():
         count = 0
         while (count <= 3):
             try:
-                campus = CampusCard(phone[index], password[index])
-                token = campus.user_info["sessionId"]
-                userInfo=getUserInfo(token)
+                for _ in range(10):
+                    campus = CampusCard(phone[index], password[index])
+                    token = campus.user_info["sessionId"]
+                    userInfo=getUserInfo(token)
+                    if userInfo:
+                        break
+                    else:
+                        print('正在尝试重新登录...')
+                        time.sleep(5)
                 if mark == 0:
                     response = checkIn(userInfo,token)
                 if mark == 1:
@@ -80,11 +86,15 @@ def getNowTime():
 
 #信息获取函数
 def getUserInfo(token):
-    data = {"appClassify": "DK", "token": token}
-    sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
-    #提交打卡
-    response = requests.post(sign_url, data=data)
-    return response.json()['userInfo']
+    for _ in range(3):
+        try:
+            data = {"appClassify": "DK", "token": token}
+            sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
+            response = requests.post(sign_url, data=data)
+            return response.json()['userInfo']
+        except:
+            print('getUserInfo ERR，Retry......')
+            time.sleep(1)
 
 #校内打卡提交函数
 def checkIn(userInfo,token):
