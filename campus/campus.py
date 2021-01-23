@@ -43,7 +43,7 @@ class CampusCard:
             'login': False,
             'serverPublicKey': '',
             'deviceId': str(random.randint(999999999999999, 9999999999999999)),
-            'wanxiaoVersion': 10462101,
+            'wanxiaoVersion': 10531102,
             'rsaKey': {
                 'private': rsa_keys[1],
                 'public': rsa_keys[0]
@@ -56,9 +56,9 @@ class CampusCard:
         :return:
         """
         resp = requests.post(
-            "https://server.17wanxiao.com/campus/cam_iface46/exchangeSecretkey.action",
+            "https://app.17wanxiao.com:443/campus/cam_iface46/exchangeSecretkey.action",
             headers={
-                "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.1.1; HUAWEI MLA-AL10 Build/HUAWEIMLA-AL10)",
+                "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 10; HUAWEI LYA-AL00 Build/HUAWEILYA-AL00)",
             },
             json={
                 "key": self.user_info["rsaKey"]["public"]
@@ -88,13 +88,13 @@ class CampusCard:
             "password": password_list,
             "qudao": "guanwang",
             "requestMethod": "cam_iface46/loginnew.action",
-            "shebeixinghao": "MLA-AL10",
+            "shebeixinghao": "LYA-AL00",
             "systemType": "android",
-            "telephoneInfo": "5.1.1",
-            "telephoneModel": "HUAWEI MLA-AL10",
+            "telephoneInfo": "10",
+            "telephoneModel": "HUAWEI LYA-AL00",
             "type": "1",
             "userName": phone,
-            "wanxiaoVersion": 10462101,
+            "wanxiaoVersion": 10531102,
             "yunyingshang": "07"
         }
         upload_args = {
@@ -102,7 +102,7 @@ class CampusCard:
             "data": des_3.object_encrypt(login_args, self.user_info["appKey"])
         }
         resp = requests.post(
-            "https://server.17wanxiao.com/campus/cam_iface46/loginnew.action",
+            "https://app.17wanxiao.com/campus/cam_iface46/loginnew.action",
             headers={"campusSign": hashlib.sha256(json.dumps(upload_args).encode('utf-8')).hexdigest()},
             json=upload_args,
             verify=False
