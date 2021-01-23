@@ -217,14 +217,16 @@ def wechatPush(title,sckey,success,fail,result):
             "desp":content
     }
     scurl='https://sc.ftqq.com/'+sckey+'.send'
-    try:
-        req = requests.post(scurl,data = data)
-        if req.json()["errmsg"] == 'success':
-            print("Server酱推送服务成功")
-        else:
-            print("Server酱推送服务失败")
-    except:
-        print("微信推送参数错误")
+    for _ in range(3):
+        try:
+            req = requests.post(scurl,data = data)
+            if req.json()["errmsg"] == 'success':
+                print("Server酱推送服务成功")
+                break
+            else:
+                print("Server酱推送服务失败")
+        except:
+            print("微信推送参数错误")
 
 if __name__ == '__main__':
     mark = 1
