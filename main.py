@@ -1,16 +1,5 @@
 import time,json,requests,random,datetime
 from campus import CampusCard
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-driver = webdriver.Chrome('/usr/bin/chromedriver',chrome_options=chrome_options)
 
 def main():
     #校内校外开关
@@ -38,7 +27,6 @@ def main():
             try:
                 campus = CampusCard(phone[index], password[index])
                 token = campus.user_info["sessionId"]
-                driver.get('https://reportedh5.17wanxiao.com/collegeHealthPunch/index.html?token=%s#/punch?punchId=180' % token)
                 userInfo=getUserInfo(token)
                 if mark == 0:
                     response = checkIn(userInfo,token)
@@ -92,10 +80,10 @@ def getNowTime():
 
 #信息获取函数
 def getUserInfo(token):
-    token={'token':token}
+    data = {"appClassify": "DK", "token": token}
     sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
     #提交打卡
-    response = requests.post(sign_url, data=token)
+    response = requests.post(sign_url, data=data)
     return response.json()['userInfo']
 
 #校内打卡提交函数
