@@ -18,6 +18,10 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: '3.7'
+
+    - name: 'Install requirements'
+      run: |
+        pip install -r requirements.txt
     
     - name: Install ChromeDriver
       run: |
@@ -31,10 +35,6 @@ jobs:
         && sudo chmod +x /usr/local/bin/chromedriver \
         && chromedriver --version
     
-    - name: 'Install requirements'
-      run: |
-        pip install -r requirements.txt
- 
     - name: Run
       run: |
         python3 main.py <<EOF
