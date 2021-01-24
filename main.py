@@ -1,13 +1,11 @@
 import time,json,requests,random,datetime
-from campus import CampusCard
+import campus
 
 def main():
-    #校内校外开关
-    mark = 1
     #定义变量
     success,failure=[],[]
     #sectets字段录入
-    phone, password, sckey = [], [], []
+    phone, password, deviceId, sckey = [], [], [], []
     #多人循环录入
     while True:  
         try:
@@ -15,7 +13,8 @@ def main():
             info = users.split(',')
             phone.append(info[0])
             password.append(info[1])
-            sckey.append(info[2])
+            deviceId.append(info[2])
+            sckey.append(info[3])
         except:
             break
 
@@ -25,20 +24,13 @@ def main():
         count = 0
         while (count <= 3):
             try:
-                for _ in range(10):
-                    campus = CampusCard(phone[index], password[index])
-                    token = campus.user_info["sessionId"]
-                    userInfo=getUserInfo(token)
-                    if userInfo:
-                        break
-                    else:
-                        print('正在尝试重新登录...')
-                        time.sleep(5)
+                token = campus.campus_start(phone[index],password[index],deviceId)
+                userInfo=getUserInfo(token)
                 if mark == 0:
                     response = checkIn(userInfo,token)
                 if mark == 1:
-                    ownPhone=phone[index]
-                    response = check(ownPhone,userInfo,token)
+                    ownphone=phone[index]
+                    response = check(ownphone,userInfo,token)
                 strTime = getNowTime()
                 if response.json()["msg"] == '成功':
                     success.append(value[-4:])
@@ -93,7 +85,7 @@ def getUserInfo(token):
             return response.json()['userInfo']
         except:
             print('getUserInfo ERR，Retry......')
-            time.sleep(1)
+            time.sleep(3)
 
 #校内打卡提交函数
 def checkIn(userInfo,token):
@@ -140,7 +132,7 @@ def checkIn(userInfo,token):
     return response
 
 #校外打卡
-def check(ownPhone,userInfo,token):
+def check(ownphone,userInfo,token):
     sign_url = "https://reportedh5.17wanxiao.com/sass/api/epmpics"
     #获取datajson
     post_json = {
@@ -178,7 +170,7 @@ def check(ownPhone,userInfo,token):
             "deptid": userInfo['classId'],
             "text": userInfo['classDescription'],
         },
-        "phonenum": ownPhone,
+        "phonenum": ownphone,
         "stuNo": userInfo['stuNo'],
         "templateid": "pneumonia",
         "upTime": "null",
