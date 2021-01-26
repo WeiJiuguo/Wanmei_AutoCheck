@@ -13,7 +13,7 @@
 - [校内校外转换](https://github.com/YooKing/HAUT_autoCheck/wiki#校内校外转换)
 - [微信通知](https://github.com/YooKing/HAUT_autoCheck/wiki#微信通知)  
 - [关闭打卡](https://github.com/YooKing/HAUT_autoCheck/wiki#关闭打卡)
-- [部署到腾讯云](https://github.com/Revincx/HAUT_autoCheck_SCF)  
+- [部署到腾讯云](https://github.com/Revincx/HAUT_autoCheck_SCF)
 - ~~[抓包](https://github.com/YooKing/HAUT_autoCheck/wiki#zhuabao)~~(无需抓包，使用[模拟登录](https://github.com/zhongbr/wanmei_campus)获取打卡信息。)
 ## 许可
 本项目以 MIT 协议开源，详情请见 [LICENSE](LICENSE) 文件。
