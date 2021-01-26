@@ -39,7 +39,7 @@ def create_key_pair(size):
 
 def create_info(deviceId):
     rsa_keys = create_key_pair(1024)
-    deviceId = deviceId
+    deviceId = str(deviceId[0])
     public_key = rsa_keys[0]
     private_key = rsa_keys[1]
     return deviceId, public_key, private_key
@@ -47,7 +47,7 @@ def create_info(deviceId):
 def exchange_secret(public_key, private_key):
     resp_exch = requests.post(
         "https://app.17wanxiao.com:443/campus/cam_iface46/exchangeSecretkey.action",
-        headers={"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 10; MI 9 MIUI/20.11.5)"},
+        headers={"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.1.1; HUAWEI MLA-AL10 Build/HUAWEIMLA-AL10)"},
         json={"key": public_key}
     )
     session_info = json.loads(
@@ -68,10 +68,10 @@ def login(phone, password, deviceId, sessionId, appKey):
         "password": password_list,
         "qudao": "guanwang",
         "requestMethod": "cam_iface46/loginnew.action",
-        "shebeixinghao": "vmos",
+        "shebeixinghao": "MLA-AL10",
         "systemType": "android",
-        "telephoneInfo": "7.1.2",
-        "telephoneModel": "MI 11",
+        "telephoneInfo": "5.1.1",
+        "telephoneModel": "HUAWEI MLA-AL10",
         "type": "1",
         "userName": phone,
         "wanxiaoVersion": 10462101,
@@ -84,19 +84,21 @@ def login(phone, password, deviceId, sessionId, appKey):
     resp_login = requests.post(
         "https://app.17wanxiao.com/campus/cam_iface46/loginnew.action",
         headers={"campusSign": hashlib.sha256(json.dumps(upload_args).encode('utf-8')).hexdigest()},
-        json=upload_args
+        json=upload_args,
+        verify=False
     ).json()
     return resp_login
 
-def campus_start(phone, password,deviceId):
+def campus_start(phone,password,deviceId):
     # 第一步
     create_info_result = create_info(deviceId)
     deviceId = create_info_result[0]
-    public_key = create_info_result[1]
+    public_key = create_info_result[1]   
     private_key = create_info_result[2]
     # 第二步
     exchange_secret_result = exchange_secret(public_key, private_key)
     sessionId = exchange_secret_result[0]
     appKey = exchange_secret_result[1]
-    login(phone, password, deviceId, sessionId, appKey)
+    resp_login=login(phone, password, deviceId, sessionId, appKey)
+    print(resp_login)
     return sessionId
