@@ -217,6 +217,7 @@ def wechatPush(title,sckey,success,fail,result):
                 break
             else:
                 print("Server酱推送服务失败")
+                time.sleep(3)
         except:
             print("微信推送参数错误")
 

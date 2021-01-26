@@ -99,9 +99,5 @@ def campus_start(phone,password,deviceId):
     exchange_secret_result = exchange_secret(public_key, private_key)
     sessionId = exchange_secret_result[0]
     appKey = exchange_secret_result[1]
-    resp_login=login(phone, password, deviceId, sessionId, appKey)
-    if '登陆成功'in resp_login:
-        print('登陆成功')
-    else:
-        print('登陆失败')
+    login(phone, password, deviceId, sessionId, appKey)
     return sessionId
