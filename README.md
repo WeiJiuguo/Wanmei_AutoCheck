@@ -9,6 +9,7 @@
 
 感谢所有参与此项目的人，祝大家牛年多财气，旺牛载运福满天！
 ## 使用方法 
+- [鸣谢](https://github.com/YooKing/HAUT_autoCheck/wiki#thanks)
 - [进入WIKI](https://github.com/YooKing/HAUT_autoCheck/wiki)
 
 ## 许可
