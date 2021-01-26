@@ -7,9 +7,8 @@
 - 基于Github Actions，完全解放你的设备和服务器✔
 - 有任何问题可以提交[issues](https://github.com/YooKing/HAUT_autoCheck/issues/new)  
 
-感谢所有参与此项目的人，祝大家牛年多财气，旺牛载运福满天！
+**感谢所有参与完美校园打卡项目的人，祝大家牛年多财气，旺牛载运福满天！**
 ## 使用方法 
-- [鸣谢](https://github.com/YooKing/HAUT_autoCheck/wiki#鸣谢)
 - [进入WIKI](https://github.com/YooKing/HAUT_autoCheck/wiki)
 
 ## 许可
