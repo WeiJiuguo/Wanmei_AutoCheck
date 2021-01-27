@@ -2,3 +2,4 @@ requests
 pycryptodome
 urllib3
 pretty_errors
+icecream
