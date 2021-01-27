@@ -39,7 +39,7 @@ def create_key_pair(size):
 
 def create_info(deviceId):
     rsa_keys = create_key_pair(1024)
-    deviceId = str(deviceId[0])
+    deviceId = deviceId
     public_key = rsa_keys[0]
     private_key = rsa_keys[1]
     return deviceId, public_key, private_key
