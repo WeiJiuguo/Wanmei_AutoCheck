@@ -58,7 +58,7 @@ def main():
                 result = "出现错误" 
                 if count<=3:
                     print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
-                time.sleep(5)
+                time.sleep(3)
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
