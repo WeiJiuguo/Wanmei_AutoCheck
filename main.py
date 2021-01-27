@@ -4,6 +4,7 @@ import random
 import time
 import pretty_errors
 import requests
+from icecream import ic
 
 from campus import CampusCard
 
