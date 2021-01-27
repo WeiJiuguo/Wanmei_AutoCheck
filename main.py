@@ -2,7 +2,7 @@ import datetime
 import json
 import random
 import time
-
+import pretty_errors
 import requests
 
 from campus import CampusCard
