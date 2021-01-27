@@ -1,0 +1,29 @@
+name: clock
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: 5 3 * * * 
+
+jobs:
+  bot:
+    runs-on: ubuntu-latest
+    steps:
+    - name: '检查代码'
+      uses: actions/checkout@v1
+    - name: '设置Python环境'
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.7'
+    - name: '安装依赖包'
+      run: |
+        pip install -r requirements.txt
+ 
+    - name: Run
+      run: |
+        python3 main.py <<EOF
+        ${{secrets.USERS}}
+        EOF
