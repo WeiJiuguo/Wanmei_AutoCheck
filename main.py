@@ -24,7 +24,7 @@ def main():
         count = 0
         while (count <= 3):
             try:
-                token = campus.campus_start(phone[index],password[index],deviceId)
+                token = campus.campus_start(phone[index],password[index],deviceId[index])
                 userInfo=getUserInfo(token)
                 if mark == 0:
                     response = checkIn(userInfo,token)
