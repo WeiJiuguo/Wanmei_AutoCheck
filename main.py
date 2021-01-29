@@ -218,8 +218,8 @@ def wechatPush(title,sckey,success,fail,result):
             else:
                 print("Server酱推送服务失败")
                 time.sleep(3)
-        except:
-            print("微信推送参数错误")
+        except Exception as e:
+            print('微信出现错误：'+e.__class__)
 
 if __name__ == '__main__':
     mark = 1
