@@ -66,7 +66,7 @@ def main():
     try:
         if result is None:
             title = '失败'
-            result={\"msg\":\"系统异常\",\"code\":\"10006\",\"data\":\"您当前打卡过于频繁，建议5分钟后再尝试~\"}
+            result={"msg":"系统异常","code":"10006","data":"您当前打卡过于频繁，建议5分钟后再尝试~"}
             wechatPush(title,sckey[0],success,fail,result)
         else:
             print('主用户开始微信推送...')
