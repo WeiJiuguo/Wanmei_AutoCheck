@@ -69,7 +69,6 @@ def main():
     except Exception as e:
         print("微信推送出现错误：")
         print(e.__class__)
-        time.sleep(3)
 
 #时间函数
 def getNowTime():
@@ -190,8 +189,8 @@ def check(ownphone,userInfo,token):
 #微信通知
 def wechatPush(title,sckey,success,fail,result):    
     strTime = getNowTime()
-    if result == "出现错误":
-        page="出现错误"
+    if result == '出现错误':
+        page=['出现错误']
     else:
         page = json.dumps(result.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
     content = f"""
