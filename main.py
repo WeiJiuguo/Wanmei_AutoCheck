@@ -64,13 +64,8 @@ def main():
     fail = sorted(set(failure),key=failure.index)
     title = "成功: %s 人,失败: %s 人"%(len(success),len(fail))
     try:
-        if result is None:
-            title = '失败'
-            result={"msg":"系统异常","code":"10006","data":"您当前打卡过于频繁，建议5分钟后再尝试~"}
-            wechatPush(title,sckey[0],success,fail,result)
-        else:
-            print('主用户开始微信推送...')
-            wechatPush(title,sckey[0],success,fail,result)
+       print('主用户开始微信推送...')
+       wechatPush(title,sckey[0],success,fail,result)
     except Exception as e:
         print("微信推送出现错误：")
         print(e.__class__)
