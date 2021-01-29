@@ -190,7 +190,10 @@ def check(ownphone,userInfo,token):
 #微信通知
 def wechatPush(title,sckey,success,fail,result):    
     strTime = getNowTime()
-    page = json.dumps(result.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
+    if result == "出现错误":
+        page="出现错误"
+    else:
+        page = json.dumps(result.json(), sort_keys=True, indent=4, separators=(',', ': '),ensure_ascii=False)
     content = f"""
 `{strTime}` 
 #### 打卡成功用户：
