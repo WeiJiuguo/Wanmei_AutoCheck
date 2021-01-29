@@ -106,5 +106,6 @@ def campus_start(phone,password,deviceId):
         else:
             print('登录失败')    
     except Exception as e:
+        print('登录出错：')
         print(e.__class__)
     return sessionId
