@@ -64,10 +64,17 @@ def main():
     fail = sorted(set(failure),key=failure.index)
     title = "成功: %s 人,失败: %s 人"%(len(success),len(fail))
     try:
-        print('主用户开始微信推送...')
-        wechatPush(title,sckey[0],success,fail,result)
-    except:
-        print("微信推送出错！")
+        if result is None:
+            title = '失败'
+            result='未进行至少一次打卡'
+            wechatPush(title,sckey[0],success,fail,result)
+        else:
+            print('主用户开始微信推送...')
+            wechatPush(title,sckey[0],success,fail,result)
+    except Exception as e:
+        print("微信推送出现错误：")
+        print(e.__class__)
+        time.sleep(3)
 
 #时间函数
 def getNowTime():
@@ -77,15 +84,13 @@ def getNowTime():
 
 #信息获取函数
 def getUserInfo(token):
-    for _ in range(3):
-        try:
-            data = {"appClassify": "DK", "token": token}
-            sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
-            response = requests.post(sign_url, data=data)
-            return response.json()['userInfo']
-        except:
-            print('getUserInfo ERR，Retry......')
-            time.sleep(3)
+    try:
+        data = {"appClassify": "DK", "token": token}
+        sign_url = "https://reportedh5.17wanxiao.com/api/clock/school/getUserInfo"
+        response = requests.post(sign_url, data=data)
+        return response.json()['userInfo']
+    except:
+        print('getUserInfo ERR，Retry......')
 
 #校内打卡提交函数
 def checkIn(userInfo,token):
@@ -209,6 +214,13 @@ def wechatPush(title,sckey,success,fail,result):
             "desp":content
     }
     scurl='https://sc.ftqq.com/'+sckey+'.send'
+    '''
+    data = {
+            "title":title,
+            "desp":content
+    }
+    scurl='https://sctapi.ftqq.com/'+sckey+'.send'
+    '''
     for _ in range(3):
         try:
             req = requests.post(scurl,data = data)
@@ -219,8 +231,8 @@ def wechatPush(title,sckey,success,fail,result):
                 print("Server酱推送服务失败")
                 time.sleep(3)
         except Exception as e:
-            print('微信出现错误：'+e.__class__)
-
+            print(e.__class__)
+            
 if __name__ == '__main__':
     mark = 1
     main()
