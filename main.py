@@ -66,7 +66,7 @@ def main():
     try:
         if result is None:
             title = '失败'
-            result='未进行至少一次打卡'
+            result={'未进行至少一次打卡'}
             wechatPush(title,sckey[0],success,fail,result)
         else:
             print('主用户开始微信推送...')
