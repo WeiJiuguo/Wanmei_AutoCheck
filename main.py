@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 import time,json,requests,random,datetime
 import campus
 
