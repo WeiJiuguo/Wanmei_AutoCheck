@@ -38,7 +38,7 @@ def main(mark, phone, password, deviceId, SendKey):
                 strTime = getNowTime()
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
-                result = '出现错误'
+                response = '出现错误'
                 if count<=3:
                     print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
                 time.sleep(3)
