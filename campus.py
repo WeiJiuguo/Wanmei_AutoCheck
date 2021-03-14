@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# coding=utf-8
 import urllib3
 import base64
 import hashlib
