@@ -25,6 +25,6 @@ jobs:
     
     - name: Run
       run: |
-        python3 main.py <<EOF
+        python3 index.py <<EOF
         ${{secrets.USERS}}
         EOF
