@@ -1,24 +1,10 @@
 # -*- coding: utf-8 -*- 
-import time,json,requests,random,datetime
+import time,json,requests,random,datetime,os
 import campus
 
-def main():
+def main(mark, phone, password, deviceId, SendKey):
     #定义变量
     success,failure=[],[]
-    #sectets字段录入
-    phone, password, deviceId, sckey = [], [], [], []
-    #多人循环录入
-    while True:  
-        try:
-            users = input()
-            info = users.split(',')
-            phone.append(info[0])
-            password.append(info[1])
-            deviceId.append(info[2])
-            sckey.append(info[3])
-        except:
-            break
-
     #提交打卡
     for index,value in enumerate(phone):
         print("开始尝试为用户%s打卡"%(value[-4:]))
@@ -37,16 +23,12 @@ def main():
                     success.append(value[-4:])
                     print(response.text)
                     msg = strTime + value[-4:]+"打卡成功"
-                    if index == 0:
-                        result=response
                     break
                 else:
                     failure.append(value[-4:])
                     print(response.text)
                     msg =  strTime + value[-4:] + "打卡异常"
                     count = count + 1
-                    if index == 0:
-                        result=response
                     if count<=3:
                         print('%s打卡失败，开始第%d次重试...'%(value[-4:],count))
                     time.sleep(5)
@@ -56,17 +38,19 @@ def main():
                 strTime = getNowTime()
                 msg = strTime + value[-4:] +"出现错误"
                 count = count + 1
-                result = "出现错误" 
+                response = '出现错误'
                 if count<=3:
                     print('%s打卡出错，开始第%d次重试...'%(value[-4:],count))
                 time.sleep(3)
+        if index == 0:
+            result=response
         print(msg)
         print("-----------------------")
     fail = sorted(set(failure),key=failure.index)
     title = "成功: %s 人,失败: %s 人"%(len(success),len(fail))
     try:
        print('主用户开始微信推送...')
-       wechatPush(title,sckey[0],success,fail,result)
+       wechatPush(title,SendKey[0],success,fail,result)
     except Exception as e:
         print("微信推送出现错误：")
         print(e.__class__)
@@ -188,7 +172,7 @@ def check(ownphone,userInfo,token):
     return res
 
 #微信通知
-def wechatPush(title,sckey,success,fail,result):    
+def wechatPush(title,SendKey,success,fail,result):    
     strTime = getNowTime()
     if result == '出现错误':
         page=['出现错误']
@@ -206,31 +190,54 @@ def wechatPush(title,sckey,success,fail,result):
 ```
 ### 😀[收藏此项目](https://github.com/YooKing/HAUT_autoCheck)
 
-        """
-    data = {
-            "text":title,
-            "desp":content
-    }
-    scurl='https://sc.ftqq.com/'+sckey+'.send'
-    '''
+"""
+  
     data = {
             "title":title,
             "desp":content
     }
-    scurl='https://sctapi.ftqq.com/'+sckey+'.send'
-    '''
+    scurl='https://sctapi.ftqq.com/'+SendKey+'.send'
     for _ in range(3):
         try:
             req = requests.post(scurl,data = data)
-            if req.json()["errmsg"] == 'success':
+            if req.json()['data']['error'] == 'SUCCESS':
                 print("Server酱推送服务成功")
                 break
             else:
                 print("Server酱推送服务失败")
-                time.sleep(3)
+                time.sleep(3) 
         except Exception as e:
             print(e.__class__)
-            
+
+def main_handler(arg1, arg2):
+    mark = 0
+    phone, password, deviceId, SendKey = [], [], [], []  
+    i = 1
+    while True:  
+        try:
+            users = os.environ.get('user' + str(i))
+            info = users.split(',')
+            phone.append(info[0])
+            password.append(info[1])
+            deviceId.append(info[2])
+            SendKey.append(info[3])
+            i += 1
+        except:
+            break
+    main(mark, phone, password, deviceId, SendKey)
+           
 if __name__ == '__main__':
-    mark = 1
-    main()
+    mark = 0
+    #sectets字段录入
+    phone, password, deviceId, SendKey = [], [], [], []    
+    while True:  
+        try:
+            users = input()
+            info = users.split(',')
+            phone.append(info[0])
+            password.append(info[1])
+            deviceId.append(info[2])
+            SendKey.append(info[3])
+        except:
+            break
+    main(mark, phone, password, deviceId, SendKey)
