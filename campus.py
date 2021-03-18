@@ -49,7 +49,8 @@ def exchange_secret(public_key, private_key):
     resp_exch = requests.post(
         "https://app.17wanxiao.com:443/campus/cam_iface46/exchangeSecretkey.action",
         headers={"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 5.1.1; HUAWEI MLA-AL10 Build/HUAWEIMLA-AL10)"},
-        json={"key": public_key}
+        json={"key": public_key},
+        verify=False
     )
     session_info = json.loads(
         rsa_decrypt(resp_exch.text.encode(resp_exch.apparent_encoding), private_key)
