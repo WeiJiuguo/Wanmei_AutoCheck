@@ -227,7 +227,7 @@ def main_handler(arg1, arg2):
     main(mark, phone, password, deviceId, SendKey)
            
 if __name__ == '__main__':
-    mark = 0
+    mark = 1
     #sectets字段录入
     phone, password, deviceId, SendKey = [], [], [], []    
     while True:  
