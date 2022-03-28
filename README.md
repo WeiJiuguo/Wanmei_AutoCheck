@@ -1,4 +1,4 @@
-## HAUT_autoCheck
+## Wanmei_AutoCheck
 
 **Wanmeixiaohuan health check-in of a university in Henan**
 - Random temperature(36.2℃-36.8℃).🌡Random latitude and longitude.🌍
